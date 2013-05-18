@@ -1,6 +1,7 @@
 workshop-ember
 ==============
 
+
 Etapes à suivre :
 
  - Création de l'application
@@ -10,6 +11,7 @@ Etapes à suivre :
  - Créer le template index avec uniquement le tableau pour l'instant
  - Créer les propriétés calculées path et method et les intégrés dans le tableau
  - Créer un helper pour afficher les poids en byte/kilByte
+ - Créer un helper pour les points de suspensions
  - Créer la page de consultation du détail d'un log
  - Créer un lien vers la homme dans le header
  - Créer le filtre recherche
