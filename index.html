@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div id="tutorial">
+
+</div>
+<div id="ember-app">
+
+</div>
+
+
+<script src="js/vendor/jquery-2.0.0.min.js"></script>
+<script src="js/vendor/handlebars-1.0.0-rc.3.js"></script>
+<script src="js/vendor/ember-1.0.0-rc.3.js"></script>
+<script src="js/vendor/ember-data-latest.js"></script>
+<script src="js/vendor/shCore.js"></script>
+<script src="js/vendor/shBrushJScript.js"></script>
+
+<script src="js/App.js"></script>
+
+<script type="text/x-handlebars" data-template-name="application">
+    <header>
+    </header>
+    {{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="detail">
+   Status: {{content.status}}
+    <br />
+   Request: {{content.request}}
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="index">
+    <div class="top">
+        <div>{{input type="search" value=searchTerm}}</div>
+    </div>
+    <div id="navigation">
+
+        <div>HTTP status</div>
+        <ul>
+            {{#each status in statuses}}
+            <li>
+                {{input type="checkbox" checked=status.checked}}
+                <label {{bindAttr for=status.code}}>{{status.code}}</label>
+            </li>
+            {{/each}}
+        </ul>
+        <br>
+
+        <div>HTTP type</div>
+        <ul>
+            {{#each method in methods }}
+
+            <li>
+                {{input type="checkbox" checked=method.checked}}
+                <label {{bindAttr for=method.code}}>{{method.code}}</label>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div id="content">
+
+        <table id="hor-zebra" summary="Access logs">
+            <thead>
+            <tr>
+                <th>Path</th>
+                <th>Method</th>
+                <th>Status</th>
+                <th>Size</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each log in content}}
+            <tr>
+                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
+                <td>{{log.method}}</td>
+                <td>{{log.status}}</td>
+                <td>{{size log.size}}</td>
+                <td>{{log.date}}</td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5">NO RESULTS</td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</script>
+</body>
+</html>
