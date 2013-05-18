@@ -16,11 +16,12 @@ header {
     color: #AAA;
     padding: 20px 20px;
     border-bottom: solid 1px #DDD;
+    font-size: 250%;
 
-    background-image: url("logo.png");;
-    background-size: 235px 50px;
-    background-repeat: no-repeat;
-    background-position: 5px center;
+}
+
+header a {
+    color:#6A205F;
 }
 
 .top {

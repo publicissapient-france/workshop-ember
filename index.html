@@ -24,6 +24,7 @@
 
 <script type="text/x-handlebars" data-template-name="application">
     <header>
+        {{#linkTo index}}&lt; Xebia / JS &gt;{{/linkTo}}
     </header>
     {{outlet}}
 </script>
@@ -32,6 +33,8 @@
    Status: {{content.status}}
     <br />
    Request: {{content.request}}
+    <br />
+    User agent: {{content.useragent}}
 </script>
 
 
