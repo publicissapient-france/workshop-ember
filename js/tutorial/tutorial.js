@@ -230,7 +230,45 @@ $.get('tutorial.html').done(function (content) {
             }
         }),
         Tuto.Step.create({
-            title: "Création de propriétés calculées"
+            title: "Création de propriétés calculées",
+            detailTemplateName: "tutorial-step-computed",
+            solutionTemplateName: "tutorial-solution-computed",
+            test: function () {
+                var log = App.Log.createRecord({
+                    request :'GET /js/messages_fr.js HTTP/1.1'
+                });
+                ok (typeof log.get('path') != "undefined",
+                    "App.Log.path n'est pas pas définie");
+
+                ok (typeof log.path != "function",
+                    "App.Log.path n'est pas une proriété calculée mais une fonction, " +
+                        "on aurait pas oublié '.property(...)' par hasard ?");
+
+                ok (log.get("path") == "/js/messages_fr.js", "Si request = 'GET /js/messages_fr.js HTTP/1.1' path devrait valoir '/js/messages_fr.js' " +
+                    "et non pas "+ log.get("path"));
+
+                log.set('request', 'GET /js/messages_en.js HTTP/1.1');
+                ok (log.get("path") == "/js/messages_en.js", "La propriété calculée path ne dépend pas de request");
+
+                ok (templates.index.indexOf("path}}") != -1, "La propriété path n'est pas utilisée dans le template index");
+
+
+                ok (typeof log.get('method') != "undefined",
+                    "App.Log.method n'est pas pas définie");
+
+                ok (typeof log.method != "function",
+                    "App.Log.method n'est pas une proriété calculée mais une fonction, " +
+                        "on aurait pas oublié '.property(...)' par hasard ?");
+
+                ok (log.get("method") == "GET", "Si request = 'GET /js/messages_fr.js HTTP/1.1' method devrait valoir 'GET' " +
+                    "et non pas "+ log.get("method"));
+
+                log.set('request', 'POST /js/messages_en.js HTTP/1.1');
+                ok (log.get("method") == "POST", "La propriété calculée method ne dépend pas de request");
+
+                ok (templates.index.indexOf("method}}") != -1, "La propriété method n'est pas utilisée dans le template index");
+            }
+
         }),
         Tuto.Step.create({
             title: "Création de helpers"
@@ -249,48 +287,14 @@ $.get('tutorial.html').done(function (content) {
         }),
         Tuto.Step.create({
             title: "Création du filtre method"
-        })
+        }),
+        Tuto.Step.create({
+            title: "Gérer les listes vides"
+        }),
 
         /*
 
-
-
-         Tuto.Step.create({
-         title: "Créer une fixture Ember-Data",
-         detailTemplateName: "tutorial-step-fixture",
-         solutionTemplateName: "tutorial-solution-fixture",
-         test: function () {
-         ok (App.Store.prototype.adapter == "DS.FixtureAdapter",
-         "L'adapter actuel de App.Store est '"+ App.Store.prototype.adapter +"'" +
-         " alors qu'il devrait être 'DS.FixtureAdapter'");
-
-         ok (App.Pony.FIXTURES && App.Pony.FIXTURES.length > 0,
-         "Faut faire un copier/coller de ce qu'il y a au dessus !");
-         }
-         }),
-         Tuto.Step.create({
-         title: "Créer le template (liste)",
-         detailTemplateName: "tutorial-step-list",
-         solutionTemplateName: "tutorial-solution-list",
-         test: function () {
-         ok (templates.application.indexOf("{{outlet}}") != -1, "Le template application ne contient pas de {{outlet}}");
-         ok (Em.typeOf(App.IndexRoute) == 'class', "App.IndexRoute n'est pas définie ou n'est pas une classe Ember.");
-         ok (App.IndexRoute.create() instanceof Em.Route, "App.IndexRoute n'est pas de type Ember.Route");
-         ok (App.IndexRoute.prototype.model(),
-         "La méthode 'model' de App.IndexRoute ne renvoie rien ou n'est pas définie.");
-         ok (App.IndexRoute.prototype.model().get,
-         "La méthode 'model' de App.IndexRoute un Objet Ember.");
-         ok (App.IndexRoute.prototype.model().get('content'),
-         "La méthode 'model' de App.IndexRoute ne renvoie pas la liste bouchonée des poneys.");
-
-
-         ok(Em.TEMPLATES['index'] != undefined, "Le template 'index' n'est pas déclaré.");
-
-         ok (templates.index.indexOf("<ul>") != -1, "Le template ne contient pas de balise ul");
-         ok (templates.index.indexOf("<li>") != -1, "Le template ne contient pas de balise li");
-         ok (templates.index.indexOf("{{#each") != -1, "Le template ne contient pas de helper {{each}}");
-         }
-         }),
+,
          Tuto.Step.create({
          title: "Créer une propriété calculée",
          detailTemplateName: "tutorial-step-computed",
