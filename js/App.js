@@ -49,44 +49,46 @@ App.IndexRoute = Ember.Route.extend({
 
 App.IndexController = Ember.ArrayController.extend({
 
-    searchTerm:'',
+    searchTerm: '',
     statuses: [
-        {code: 200, checked: false},
-        {code: 201, checked: false},
-        {code: 304, checked: false},
-        {code: 400, checked: false},
-        {code: 403, checked: false},
-        {code: 404, checked: false},
-        {code: 500, checked: false}
+        {code: 200, checked: true},
+        {code: 201, checked: true},
+        {code: 304, checked: true},
+        {code: 400, checked: true},
+        {code: 403, checked: true},
+        {code: 404, checked: true},
+        {code: 500, checked: true}
     ],
     methods: [
-        {code: "PUT", checked: false},
-        {code: 'DELETE', checked: false},
-        {code: "POST", checked: false},
-        {code: 'GET', checked: false}
+        {code: "PUT", checked: true},
+        {code: 'DELETE', checked: true},
+        {code: "POST", checked: true},
+        {code: 'GET', checked: true}
     ],
-    parametersChanged: function() {
 
-        var isChecked = function(el) {
+    filteredLogs: function () {
+        var isChecked = function (el) {
             return el.checked;
         };
 
-        var getCode = function(el) {
+        var getCode = function (el) {
             return el.code;
         };
 
-        var searchparams = {
-            methods: this.get('methods').filter(isChecked).map(getCode),
-            statuses: this.get('statuses').filter(isChecked).map(getCode)
-        };
-
+        var methods = this.get('methods').filter(isChecked).map(getCode);
+        var statuses = this.get('statuses').filter(isChecked).map(getCode);
         var searchTerm = this.get('searchTerm').trim();
-        if(searchTerm != '') {
-            searchparams.searchTerm = searchTerm;
-        }
-        this.set('content', App.Log.find(searchparams));
 
-    }.observes('methods.@each.checked','statuses.@each.checked', 'searchTerm')
+        return this.get('content').filter(function (log) {
+
+            return statuses.indexOf(log.get('status')) != -1;
+        }).filter(function (log) {
+                return methods.indexOf(log.get('method')) != -1;
+            }).filter(function (log) {
+                return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
+            });
+    }.property('content.@each', 'methods.@each.checked', 'statuses.@each.checked', 'searchTerm')
+
 
 });
 
