@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/main.less" rel="stylesheet" type="text/less">
 </head>
 <body>
 
@@ -13,14 +13,6 @@
 </div>
 
 
-<script src="js/vendor/jquery-2.0.0.min.js"></script>
-<script src="js/vendor/handlebars-1.0.0-rc.3.js"></script>
-<script src="js/vendor/ember-1.0.0-rc.3.js"></script>
-<script src="js/vendor/ember-data-latest.js"></script>
-<script src="js/vendor/shCore.js"></script>
-<script src="js/vendor/shBrushJScript.js"></script>
-
-<script src="js/App.js"></script>
 
 <script type="text/x-handlebars" data-template-name="application">
     <header>
@@ -30,9 +22,9 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="detail">
-   Status: {{content.status}}
+    Status: {{content.status}}
     <br />
-   Request: {{content.request}}
+    Request: {{content.request}}
     <br />
     User agent: {{content.useragent}}
 </script>
@@ -96,5 +88,18 @@
         </table>
     </div>
 </script>
+
+<script src="js/vendor/jquery-2.0.0.min.js"></script>
+<script src="js/vendor/handlebars-1.0.0-rc.3.js"></script>
+<script src="js/vendor/ember-1.0.0-rc.3.js"></script>
+<script src="js/vendor/ember-data-latest.js"></script>
+<script src="js/vendor/less.js"></script>
+<script src="js/vendor/shCore.js"></script>
+<script src="js/vendor/shBrushJScript.js"></script>
+
+<script src="js/App.js"></script>
+<script src="js/tutorial/PonyUnit.js"></script>
+<script src="js/tutorial/tutorial.js"></script>
+
 </body>
 </html>
