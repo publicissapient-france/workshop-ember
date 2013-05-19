@@ -90,24 +90,28 @@ App = Ember.Application.create({
     });
 </script>
 
-
-<!--
-
 <script type="text/x-handlebars" data-template-name="tutorial-step-model">
-    <p>Ensuite, il faut définir une classe <code>App.Pony</code>,  avec 4 propriétés de type String&nbsp;:
-        <code>firstName</code>, <code>lastName</code>, <code>color</code> et <code>type</code>.</p>
+    <p>Ensuite, il faut définir une classe <code>App.Log</code>,  avec 5 propriétés de type string&nbsp;:
+        <code>host</code>, <code>date</code>, <code>request</code>, <code>useragent</code> et <code>status</code>,
+        ainsi qu'une propriété <code>size</code> de type number.</p>
 
     <a href="http://emberjs.com/guides/models/defining-models" target="_blank">Définition des modèles</a>
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-model">
-    App.Pony = DS.Model.extend({
-        lastName: DS.attr('string'),
-        firstName: DS.attr('string'),
-        color: DS.attr('string'),
-        type: DS.attr('string')
+    App.Log = DS.Model.extend({
+        host: DS.attr('string'),
+        date: DS.attr('string'),
+        request: DS.attr('string'),
+        status: DS.attr('string'),
+        size: DS.attr('number'),
+        useragent: DS.attr('string')
     });
+
 </script>
+
+<!--
+
 
 <script type="text/x-handlebars" data-template-name="tutorial-step-fixture">
     <p>Afin de préparer l'affichage d'une liste de poneys, nous utiliserons des données bouchonnées par Ember Data.

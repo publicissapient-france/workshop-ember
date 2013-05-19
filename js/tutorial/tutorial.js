@@ -164,7 +164,40 @@ $.get('tutorial.html').done(function (content) {
             }
         }),
         Tuto.Step.create({
-            title: "Création d'une classe Log"
+            title: "Création d'une classe Log",
+            detailTemplateName: "tutorial-step-model",
+            solutionTemplateName: "tutorial-solution-model",
+            test: function () {
+                ok(typeof App.Log != "undefined",
+                    "App.Log n'est pas définie.");
+
+                ok(Em.typeOf(App.Log) == "class",
+                    "App.Log n'est pas une classe ember.");
+
+                ok(App.Log.createRecord &&
+                    App.Log.createRecord() instanceof DS.Model,
+                    "App.Log n'est pas de type DS.Model");
+
+                var assertLogPropertyExistenceAndType = function (propertyName, expectedType) {
+                    try {
+                        var type = App.Log.metaForProperty(propertyName).type;
+                        equal(type, expectedType,
+                            "La proprité " + propertyName + " de App.Log doit être de type " + expectedType + " et de non type " + type);
+                    } catch (e) {
+                        if (e instanceof Failed) {
+                            throw e;
+                        }
+                        fail("App.Log ne contient pas de propriété " + propertyName + " ou elle n'est pas correctement déclarée.");
+                    }
+                };
+
+                assertLogPropertyExistenceAndType("host", 'string');
+                assertLogPropertyExistenceAndType("date", 'string');
+                assertLogPropertyExistenceAndType("request", 'string');
+                assertLogPropertyExistenceAndType("status", 'string');
+                assertLogPropertyExistenceAndType("size", 'number');
+                assertLogPropertyExistenceAndType("useragent", 'string');
+            }
         }),
         Tuto.Step.create({
             title: "Création du template de liste"
@@ -194,40 +227,7 @@ $.get('tutorial.html').done(function (content) {
         /*
 
 
-         Tuto.Step.create({
-         title: "Créer une classe Pony",
-         detailTemplateName: "tutorial-step-model",
-         solutionTemplateName: "tutorial-solution-model",
-         test: function () {
-         ok(typeof App.Pony != "undefined",
-         "App.Poney n'est pas définie.");
 
-         ok(Em.typeOf(App.Pony)  == "class",
-         "App.Pony n'est pas une classe ember.");
-
-         ok(App.Pony.createRecord &&
-         App.Pony.createRecord() instanceof DS.Model,
-         "App.Pony n'est pas de type DS.Model");
-
-         var assertPonyPropertyExistenceAndType = function (propertyName, expectedType) {
-         try {
-         var type = App.Pony.metaForProperty(propertyName).type;
-         equal(type, expectedType,
-         "La proprité " + propertyName + " de App.pony doit être de type "+expectedType+" et de non type " +type );
-         } catch (e) {
-         if (e instanceof Failed){
-         throw e;
-         }
-         fail("App.Pony ne contient pas de propriété "+propertyName + " ou elle n'est pas correctement déclarée.");
-         }
-         }
-
-         assertPonyPropertyExistenceAndType("firstName", 'string');
-         assertPonyPropertyExistenceAndType("lastName", 'string');
-         assertPonyPropertyExistenceAndType("color", 'string');
-         assertPonyPropertyExistenceAndType("type", 'string');
-         }
-         }),
          Tuto.Step.create({
          title: "Créer une fixture Ember-Data",
          detailTemplateName: "tutorial-step-fixture",
