@@ -200,7 +200,34 @@ $.get('tutorial.html').done(function (content) {
             }
         }),
         Tuto.Step.create({
-            title: "Création du template de liste"
+            title: "Création du template de liste",
+            detailTemplateName: "tutorial-step-list",
+            solutionTemplateName: "tutorial-solution-list",
+            test: function () {
+                ok (templates.application.indexOf("{{outlet}}") != -1, "Le template application ne contient pas de {{outlet}}");
+                ok (Em.typeOf(App.IndexRoute) == 'class', "App.IndexRoute n'est pas définie ou n'est pas une classe Ember.");
+                ok (App.IndexRoute.create() instanceof Em.Route, "App.IndexRoute n'est pas de type Ember.Route");
+                ok (App.IndexRoute.prototype.model(),
+                    "La méthode 'model' de App.IndexRoute ne renvoie rien ou n'est pas définie.");
+                ok (App.IndexRoute.prototype.model().get,
+                    "La méthode 'model' de App.IndexRoute un Objet Ember.");
+                ok (App.IndexRoute.prototype.model().get('content'),
+                    "La méthode 'model' de App.IndexRoute ne renvoie pas la liste des logs.");
+
+
+                ok(Em.TEMPLATES['index'] != undefined, "Le template 'index' n'est pas déclaré.");
+
+                ok (templates.index.indexOf("<div") != -1, "Le template ne contient pas de balise div");
+                ok (templates.index.indexOf("content") != -1, "Le template ne contient pas l'id content");
+                ok (templates.index.indexOf("<table>") != -1, "Le template ne contient pas de balise table");
+
+                ok (templates.index.indexOf("<th>Path</th><th>Method</th><th>Status</th><th>Size</th><th>Time</th>") != -1, "Le template doit contenir entre balise th les colonnes Path, Method, Status, Size, Time dans l'ordre");
+                ok (templates.index.indexOf("<td>") != -1, "Le template ne contient pas de balise td");
+                ok (templates.index.indexOf("status}}") != -1, "Le template n'affiche pas le status dans la colonne correspondante");
+                ok (templates.index.indexOf("size}}") != -1, "Le template n'affiche pas la taille (size) dans la colonne correspondante");
+                ok (templates.index.indexOf("date}}") != -1, "Le template n'affiche pas la date dans la colonne correspondante");
+                ok (templates.index.indexOf("{{#each") != -1, "Le template ne contient pas de helper {{each}}");
+            }
         }),
         Tuto.Step.create({
             title: "Création de propriétés calculées"

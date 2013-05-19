@@ -110,118 +110,76 @@ App = Ember.Application.create({
 
 </script>
 
-<!--
-
-
-<script type="text/x-handlebars" data-template-name="tutorial-step-fixture">
-    <p>Afin de préparer l'affichage d'une liste de poneys, nous utiliserons des données bouchonnées par Ember Data.
-        Ce bouchon se nomme <strong>fixture</strong>.
-    </p>
-    <p>Indiquez au datastore que vous souhaitez utiliser un adapter de type <code>DS.FixtureAdapter</code> (cf. <a target="_blank" href="http://emberjs.com/guides/models/defining-a-store">la partie concernant l'adapter</a>)</p>
-    <p>Puis dans une propriété statique nommée <code>FIXTURES</code> de la classe <code>App.Pony</code>, ajoutez le tableau contenant la liste de vos poneys&nbsp;: </p>
-    <pre class="brush: js">
-App.Pony.FIXTURES = [
-    {
-        id: 1,
-        firstName: 'Rainbow',
-        lastName: 'Dash',
-        color: 'Sky blue',
-        type: 'Pegasus'
-    },
-    {
-        id: 2,
-        firstName: 'Twillight',
-        lastName: 'Sparkle',
-        color: 'Lavender',
-        type: 'Alicorn'
-    },
-    {
-        id: 3,
-        firstName: 'Apple',
-        lastName: 'Jack',
-        color: 'orange',
-        type: 'Earth Pony'
-    }
-];
-    </pre>
-
-</script>
-
-
-<script type="text/x-handlebars" data-template-name="tutorial-solution-fixture">
-     <pre class="brush: js">
-        App.Store = DS.Store.extend({
-            revision: 12,
-            adapter: 'DS.FixtureAdapter'
-        });
-
-        App.Poney.FIXTURES = [
-    {
-        id: 1,
-        firstName: 'Rainbow',
-        lastName: 'Dash',
-        color: 'Sky blue',
-        type: 'Pegasus'
-    },
-    {
-        id: 2,
-        firstName: 'Twillight',
-        lastName: 'Sparkle',
-        color: 'Lavender',
-        type: 'Alicorn'
-    },
-    {
-        id: 3,
-        firstName: 'Apple',
-        lastName: 'Jack',
-        color: 'orange',
-        type: 'Earth Pony'
-    }
-];
-    </pre>
-</script>
-
 <script type="text/x-handlebars" data-template-name="tutorial-step-list">
 
     <p>Par convention, sur le chemin <strong>/</strong> Ember rend la route <strong>Index</strong>
         (cf <a target="_blank" href="http://emberjs.com/guides/routing/defining-your-routes/">les conventions sur les routes</a>.
-    Vous devez donc maintenant définir une route <code>App.IndexRoute</code>, dont le modèle associé sera la liste des poneys renvoyés par la fixture.</p>
+        Vous devez donc maintenant définir une route <code>App.IndexRoute</code>, dont le modèle associé sera la liste des logs renvoyés par le modèle.</p>
     <a target="_blank" href="http://emberjs.com/guides/routing/specifying-a-routes-model/">Pour définir une route (il n'y a pas besoin de définir de router pour l'instant, tout se fait par convention)</a>
     <br />
     <a target="_blank" href="http://emberjs.com/guides/models/finding-models/">Pour récupérer la liste des poneys depuis le modèle</a>
-    <p>Nous allons maintenant afficher la liste des poneys dans la page.
+    <p>Nous allons maintenant afficher la liste des logs dans la page.
         Pour cela il faut ajouter une balise <a target="_blank" href="http://emberjs.com/api/classes/Ember.Handlebars.helpers.html#method_outlet"><code>outlet</code></a> au template <code>application</code>,
-        outlet qui nous servira de placeholder indiquant où sera insérée la liste des poneys.</p>
+        <code>outlet</code> qui nous servira de placeholder indiquant où sera insérée le template index.</p>
 
     <p>Enfin, il faut créer un nouveau template nommé <code>index</code>.
         Par convention, le modèle renvoyé par la route est chargé dans une propriété nommé <code>content</code> dans le controller.
-       Ici, la liste des poneys est donc accessible dans le template depuis la propriété content.
-        Afficher la liste des prénoms de poneys dans le template <code>index</code> à l'aide de balise <code>&lt;ul&gt;</code> et <code>&lt;li&gt;</code>.
+        Ici, la liste des logs est donc accessible dans le template depuis la propriété content.
+
+        Créer un tableau HTML dans une div dont l'id est <code>content</code> avec les colonnes <code>Path</code>, <code>Method</code>, <code>Status</code>, <code>Size</code>, <code>Time</code>.
+        &Agrave; l'intérieur de ce tableau, afficher pour l'instant les données <code>status</code>, <code>size</code> et <code>date</code> de chaque log.
     </p>
+
 
     <a target="_blank" href="http://emberjs.com/guides/templates/displaying-a-list-of-items/">Affiche une liste d'éléments dans un template</a>
 
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-list">
-App.IndexRoute = Ember.Route.extend({
-    model: function () {
-       return App.Pony.find();
-    }
-});
+    App.IndexRoute = Ember.Route.extend({
+        model: function () {
+            return App.Log.find();
+        }
+    });
 
-&lt;script type="text/x-handlebars" data-template-name="application">
-  <h1>My Li'l Pony Application</h1>
-  \{{outlet}}
-&lt;/script>
+    &lt;script type="text/x-handlebars" data-template-name="application">
+    <header>Xebia / JS</header>
+    {{outlet}}
+    &lt;/script>
 
-&lt;script type="text/x-handlebars" data-template-name="index">
-<ul>
-  \{{#each poney in content}}
-    <li>\{{poney.firstName}}</li>
-  \{{/each}}
-</ul>
-&lt;/script>
+    &lt;script type="text/x-handlebars" data-template-name="index">
+    <div id="content">
+    <table>
+        <thead>
+        <tr>
+            <th>Path</th>
+            <th>Method</th>
+            <th>Status</th>
+            <th>Size</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each log in content}}
+        <tr>
+            <td></td>
+            <td></td>
+            <td>{{log.status}}</td>
+            <td>{{log.size}}</td>
+            <td>{{log.date}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    </div>
+    &lt;/script>
+</script>
+<!--
+
+
+
+<script type="text/x-handlebars" data-template-name="tutorial-solution-list">
+
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-step-computed">
