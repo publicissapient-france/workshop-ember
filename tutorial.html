@@ -60,25 +60,24 @@ App = Ember.Application.create({
 });
 </script>
 
-
-<!--
-
 <script type="text/x-handlebars" data-template-name="tutorial-step-hello">
     <p>L'application Ember maintenant créée, il est temps d'afficher votre premier texte. </p>
 
-    <p>Créez un nouveau template nommé <code>application</code> avec une balise <code>h1</code> content le texte <code>My Li'l Pony Application</code>. </p>
+    <p>Créez un nouveau template nommé <code>application</code> avec une balise <code>header</code> content le texte <code>Xebia / JS</code>. </p>
 
     <a href="http://emberjs.com/guides/application/the-application-template" target="_blank">Documentation du template d'application</a>
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-hello">
     &lt;script type="text/x-handlebars" data-template-name="application">
-        <h1>My Li'l Pony Application</h1>
+    <header>Xebia / JS</header>
     &lt;/script>
 </script>
 
+
+
 <script type="text/x-handlebars" data-template-name="tutorial-step-ds">
-    <p>Il va maintenant être nécessaire de créer une classe pour représenter les poneys.
+    <p>Il va maintenant être nécessaire de créer une classe pour représenter les logs.
         Pour cela, nous allons utiliser <a href="https://github.com/emberjs/data" target="_blank">Ember-Data</a>, une librairie expérimentale gérant l'aspect persistence des données pour Ember</p>
 
     <p>La première étape va être de configurer un store&nbsp;: <a href="http://emberjs.com/guides/models/defining-a-store" target="_blank">créer un store</a>.</p>
@@ -90,6 +89,9 @@ App = Ember.Application.create({
         revision: 12
     });
 </script>
+
+
+<!--
 
 <script type="text/x-handlebars" data-template-name="tutorial-step-model">
     <p>Ensuite, il faut définir une classe <code>App.Pony</code>,  avec 4 propriétés de type String&nbsp;:
