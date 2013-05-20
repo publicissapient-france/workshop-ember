@@ -2,31 +2,6 @@ Ember.ENV.TESTING = true;
 window.location.hash = "#/";
 SyntaxHighlighter.defaults['gutter'] = false;
 
-var registerHelper = Ember.Handlebars.registerBoundHelper;
-var helpers = {};
-
-Ember.Handlebars.registerBoundHelper = function (name, fn) {
-    helpers[name] = fn;
-    registerHelper(name, fn);
-};
-
-var bootstrap = Ember.Handlebars.bootstrap;
-var templates = {};
-Ember.Handlebars.bootstrap = function (ctx) {
-    var selectors = 'script[type="text/x-handlebars"], script[type="text/x-raw-handlebars"]';
-
-    Ember.$(selectors, ctx)
-        .each(function () {
-            var script = Ember.$(this);
-            templateName = script.attr('data-template-name') || script.attr('id') || 'application';
-            if (templateName.indexOf("tutorial") == -1) {
-                templates[templateName] = script.html().replace(/\s+/g, '');
-            }
-        });
-    bootstrap(ctx);
-}
-
-
 $.get('tutorial.html').done(function (content) {
     $('body').append(content);
 
@@ -271,7 +246,16 @@ $.get('tutorial.html').done(function (content) {
 
         }),
         Tuto.Step.create({
-            title: "Création de helpers"
+            title: "Création de helpers",
+            detailTemplateName: "tutorial-step-helper",
+            solutionTemplateName: "tutorial-solution-helper",
+            test: function () {
+                ok (helpers.size != undefined, "Le helper 'size' n'est pas définie.");
+                ok (helpers.size(180) === "180 B", "Le helper 'size' doit retourner le nombre passé en argument suffixé de B si ce nombre est inférieur a 1024");
+                ok (helpers.size(2202) === "2.15 kB", "Le helper 'size' doit retourner le nombre passé en argument divisé par 1024 et arrondi à 2 décimales suffixé de kB si ce nombre est supérieur à 1024");
+
+                templateContains("index", "{{size", "Le helper size n'est pas utilisé dans le template index");
+            }
         }),
         Tuto.Step.create({
             title: "Création d'une page de consultation"
@@ -294,37 +278,6 @@ $.get('tutorial.html').done(function (content) {
 
         /*
 
-,
-         Tuto.Step.create({
-         title: "Créer une propriété calculée",
-         detailTemplateName: "tutorial-step-computed",
-         solutionTemplateName: "tutorial-solution-computed",
-         test: function () {
-
-         ok (typeof App.Pony.createRecord({}).get('name') != "undefined",
-         "App.Pony.name n'est pas pas définie");
-
-         ok (typeof App.Pony.createRecord({}).name != "function",
-         "App.Pony.name n'est pas une proriété calculée mais une fonction, " +
-         "on aurait pas oublié '.property(...)' par hazard ?");
-
-         var pony = App.Pony.createRecord({
-         firstName :'AA',
-         lastName: 'BB'
-         });
-         ok (pony.get("name") == "AA BB", "Si firstName = 'AA' et lastName = 'BB' name devrait valoir 'AA BB' " +
-         "et non pas "+ pony.get("name"));
-
-         pony.set('firstName', 'CC');
-         ok (pony.get("name") == "CC BB", "La propriété calculée name ne dépend pas de firstName");
-
-         pony.set('lastName', 'DD');
-         ok (pony.get("name") == "CC DD", "La propriété calculée name ne dépend pas de lastName");
-         pony.deleteRecord();
-
-         ok (templates.index.indexOf("name}}") != -1, "La propriété name n'est pas utilisée dans le template index");
-         }
-         }),
          Tuto.Step.create({
          title: "Créer une route consultation",
          detailTemplateName: "tutorial-step-consultation",

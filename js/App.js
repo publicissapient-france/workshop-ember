@@ -99,11 +99,9 @@ App.Router.map(function () {
 
 
 Ember.Handlebars.registerBoundHelper('size', function (number) {
-    if (number > 1024 * 1024) {
-        return '' + (number / 1024 * 1024).toFixed(2) + ' MB';
-    } else if (number > 1024) {
-        return '' + (number / 1024).toFixed(2) + ' kB';
+    if (number > 1024) {
+        return (number / 1024).toFixed(2).toString() + ' kB';
     } else {
-        return '' + number + ' B';
+        return number.toString() + ' B';
     }
 });

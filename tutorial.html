@@ -237,6 +237,55 @@ App = Ember.Application.create({
     </div>
     &lt;/script>
 </script>
+
+
+<script type="text/x-handlebars" data-template-name="tutorial-step-helper">
+    <p>Nous allons maintenant créer un
+        <a target="_blank" href="http://emberjs.com/guides/templates/writing-helpers/">helper</a>,
+        permettant d'afficher la taille du log de façon lisible.</p>
+    <p>Ce helper devra renvoyer la taille suffixé de B si la taille est inférieur à 1024, sinon renvoyé la taille divisé par 1024, arrondi à 2 décimales, et suffixé de kB.
+    Par exemple, si la taille est 103 le helper renverra <strong>103 B</strong>, si la taille est 3045, le helper renvera <strong>2.97 kB</strong></p>
+    <p>Créez le helper <code>size</code> et utilisez la taille dans la liste des logs</p>
+</script>
+
+<script type="text/x-handlebars" data-template-name="tutorial-solution-helper">
+    Ember.Handlebars.registerBoundHelper('size', function (number) {
+        if (number > 1024) {
+            return (number / 1024).toFixed(2).toString() + ' kB';
+        } else {
+            return number.toString() + ' B';
+        }
+    });
+
+    &lt;script type="text/x-handlebars" data-template-name="index">
+    <div id="content">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Path</th>
+                <th>Method</th>
+                <th>Status</th>
+                <th>Size</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each log in content}}
+            <tr>
+                <td>{{log.path}}</td>
+                <td>{{log.method}}</td>
+                <td>{{log.status}}</td>
+                <td>{{size log.size}}</td>
+                <td>{{log.date}}</td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    &lt;/script>
+
+</script>
 <!--
 
 
@@ -409,22 +458,4 @@ App.AddController = Ember.ObjectController.extend({
 });
 </script>
 
-<script type="text/x-handlebars" data-template-name="tutorial-step-helper">
-    <p>Enfin nous allons créer un
-        <a target="_blank" href="http://emberjs.com/guides/templates/writing-helpers/">helper</a>,
-        permettant d'afficher le nom du poney en majuscule dans la consultation. </p>
-    <p>Créez le helper <code>upperCase</code> et utilisez le sur le nom dans la consultation</p>
-</script>
-<script type="text/x-handlebars" data-template-name="tutorial-solution-helper">
-Ember.Handlebars.registerBoundHelper('upperCase', function (text) {
-    return text.toUpperCase();
-});
-
-&lt;script type="text/x-handlebars" data-template-name="index">
-    <span>Name: \{{upperCase content.name}}</span><br/>
-    <span>Color: \{{content.color}}</span><br/>
-    <span>Type: \{{content.type}}</span><br/>
-&lt;/script>
-
-</script>
 -->
