@@ -258,7 +258,20 @@ $.get('tutorial.html').done(function (content) {
             }
         }),
         Tuto.Step.create({
-            title: "Création d'une page de consultation"
+            title: "Création d'une page de consultation",
+            detailTemplateName: "tutorial-step-consultation",
+            solutionTemplateName: "tutorial-solution-consultation",
+            test: function () {
+
+                var appRouter = App.__container__.lookup('router:main');
+
+                ok (appRouter.hasRoute('detail'), "Il n'y pas de route 'detail' déclarée dans le router.");
+
+                ok(Em.TEMPLATES['detail'] != undefined, "Le template 'detail' n'est pas déclaré.");
+
+                templateContains('detail','useragent}}', "Le useragent n'est pas affiché dans le détail.");
+                templateContains('index', "{{#linkTodetail" , "Le helper linkTo n'est pas utilisé dans le template index.");
+            }
         }),
         Tuto.Step.create({
             title: "Création d'un lien vers la home dans le header"
@@ -276,26 +289,12 @@ $.get('tutorial.html').done(function (content) {
             title: "Gérer les listes vides"
         }),
 
+
         /*
 
          Tuto.Step.create({
          title: "Créer une route consultation",
-         detailTemplateName: "tutorial-step-consultation",
-         solutionTemplateName: "tutorial-solution-consultation",
-         test: function () {
 
-         var appRouter = App.__container__.lookup('router:main');
-
-         ok (appRouter.hasRoute('detail'), "Il n'y pas de route 'detail' déclarée dans le router.");
-
-         ok(Em.TEMPLATES['detail'] != undefined, "Le template 'detail' n'est pas déclaré.");
-
-         templateContains('detail','name}}', "Le nom n'est pas affiché dans le détail.");
-         templateContains('detail','type}}', "Le type n'est pas affiché dans le détail.");
-         templateContains('detail','color}}', "La couleur n'est pas affichée dans le détail.");
-
-         templateContains('index', "{{#linkTodetail" , "Le helper linkTo n'est pas utilisé dans le template index.");
-         }
          }),
          Tuto.Step.create({
          title: "Créer un lien vers la home",

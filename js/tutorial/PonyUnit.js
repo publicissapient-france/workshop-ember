@@ -31,6 +31,7 @@ var PonyUnit = (function () {
                 execTestsSteps(steps, 1+index);
             }
         } catch (e) {
+
             localStorage.lastRuningTestIdx = index;
             failed = true;
             if (e instanceof Failed) {
