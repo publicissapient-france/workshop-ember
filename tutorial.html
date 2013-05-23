@@ -427,40 +427,68 @@ App = Ember.Application.create({
 
 
 <script type="text/x-handlebars" data-template-name="tutorial-step-status">
+    <p>Nous allons maintenant créer une liste de radio bouton de status afin de pouvoir filtrer les logs par status.</p>
+    <p>Tout d'abord, nous allons créer une liste de status au niveau du controller de la forme : </p>
+     <pre class="brush: js">
+         statuses: [
+            {code: 200, checked: true},
+            {code: 201, checked: true},
+            {code: 304, checked: true},
+            {code: 400, checked: true},
+            {code: 403, checked: true},
+            {code: 404, checked: true},
+            {code: 500, checked: true}
+         ]
+     </pre>
+    <p>Le choix de stocker les informations sous forme de liste d'objet plutot que sous la forme par exemple <code>{200:true, 300:true}</code> est lié au fait que
+    Ember permet d'écouter les changements de n'importe quel élément d'une liste, mais pas les changements sur n'importe quel attribut d'un objet.</p>
+
+    <p>Au niveau de la propriété <code>filteredCode</code>, nous allons ajouter le fait que l'on affiche pas les status dont le paramètre <code>checked</code> est <code>false</code>.
+       Pour cela, <code>statuses</code> étant une liste, il faut écouter la propriété <code>checked</code> de chacun de ses éléments à l'aide <a target="_blank" href="http://emberjs.com/guides/object-model/computed-properties-and-aggregate-data/"><code>.@each</code></a>.
+    </p>
+
+    <p>Nous allons maintenant créer une interface permettant de modifier les propriétés <code>checked</code> de chacun des status.
+        Dans une <code>div</code> dont l'id est <strong>navigation</strong>, insérer une liste de status avec des <code>ul</code> et des <code>li</code>.
+        Dans chaque <code>li</code>, mettez y une checkbox en utilisant le helper <code>input</code> vu précédemment. Ce helper possède une propriété checked qui permet
+        d'indiquer à quel propriété l'état de la checkbox est associé.
+        Vous pouvez vous inspirer de <a target="_blank" href="http://emberjs.com/api/classes/Ember.Checkbox.html">Ember.Checkbox</a> dont le helper <code>input type="checkbox"</code>
+        est un alias.
+    </p>
+
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-solution-status">
     App.IndexController = Ember.ArrayController.extend({
 
-    searchTerm: '',
-    statuses: [
-        {code: 200, checked: true},
-        {code: 201, checked: true},
-        {code: 304, checked: true},
-        {code: 400, checked: true},
-        {code: 403, checked: true},
-        {code: 404, checked: true},
-        {code: 500, checked: true}
-    ],
+        searchTerm: '',
+        statuses: [
+            {code: 200, checked: true},
+            {code: 201, checked: true},
+            {code: 304, checked: true},
+            {code: 400, checked: true},
+            {code: 403, checked: true},
+            {code: 404, checked: true},
+            {code: 500, checked: true}
+        ],
 
-    filteredLogs: function () {
-        var isChecked = function (el) {
-            return el.checked;
-        };
+        filteredLogs: function () {
+            var isChecked = function (el) {
+                return el.checked;
+            };
 
-        var getCode = function (el) {
-            return el.code;
-        };
+            var getCode = function (el) {
+                return el.code;
+            };
 
-        var methods = this.get('methods').filter(isChecked).map(getCode);
-        var statuses = this.get('statuses').filter(isChecked).map(getCode);
-        var searchTerm = this.get('searchTerm').trim();
+            var methods = this.get('methods').filter(isChecked).map(getCode);
+            var statuses = this.get('statuses').filter(isChecked).map(getCode);
+            var searchTerm = this.get('searchTerm').trim();
 
-        return this.get('content').filter(function (log) {
-            return statuses.indexOf(log.get('status')) != -1;
-        }).filter(function (log) {
-            return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
-        });
-    }.property('content.@each', 'statuses.@each.checked', 'searchTerm')
+            return this.get('content').filter(function (log) {
+                return statuses.indexOf(log.get('status')) != -1;
+            }).filter(function (log) {
+                return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
+            });
+        }.property('content.@each', 'statuses.@each.checked', 'searchTerm')
 
 
     });
