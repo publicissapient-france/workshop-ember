@@ -290,16 +290,25 @@ $.get('tutorial.html').done(function (content) {
 
         }),
         Tuto.Step.create({
-            title: "Création du filtre de recherche"
+            title: "Création du filtre de recherche",
+            detailTemplateName: "tutorial-step-search",
+            solutionTemplateName: "tutorial-solution-search"
+
         }),
         Tuto.Step.create({
-            title: "Création du filtre status"
+            title: "Création du filtre status",
+            detailTemplateName: "tutorial-step-status",
+            solutionTemplateName: "tutorial-solution-status"
         }),
         Tuto.Step.create({
-            title: "Création du filtre method"
+            title: "Création du filtre method",
+            detailTemplateName: "tutorial-step-method",
+            solutionTemplateName: "tutorial-solution-method"
         }),
         Tuto.Step.create({
-            title: "Gérer les listes vides"
+            title: "Gérer les listes vides",
+            detailTemplateName: "tutorial-step-empty-list",
+            solutionTemplateName: "tutorial-solution-empty-list"
         }),
 
 

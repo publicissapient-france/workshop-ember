@@ -361,6 +361,84 @@ App = Ember.Application.create({
     &lt;/script>
 </script>
 
+<script type="text/x-handlebars" data-template-name="tutorial-step-search">
+    <p>Nous allons maintenant créer un champs de recherche permettant de filtrer les résultats affichés.</p>
+
+    <p>Pour cela, il faut tout d'abord insérer dans le template index le champ de recherche. Pour cela nous allons utiliser un helper spécifique <a target="_blank" href="http://emberjs.com/blog/2013/04/21/ember-1-0-rc3.html"><code>input</code></a>.
+       Ce helper genere un champs input, qu'il faudra un insérer dans une <code>div</code> dont l'id sera top.
+    </p>
+    <p>Le helper <code>input</code> permet de préciser le type du champ ainsi que l'attribut dans lequel la valeur sera enregistré.
+    Ici nous voulons que le helper soit de type <code>search</code> et qu'il point vers un attribut nommé <code>searchTerm</code></p>
+
+    <p>Nous voulons maintenant que les données soient filtrées au fur et à mesure de la frappe. Le contexte par défaut d'un template étant le controller associé,
+    il nous faut ici créer le controller correspondant à la vue index. <a target="_blank" href="http://emberjs.com/guides/routing/defining-your-routes/">Par convention</a>, ce controller sera nommé <code>App.IndexController</code>.</p>
+    <p>Pour n'afficher que les valeurs filtrées, au lieu de parcourir <code>content</code> dans le template, nous allons parcourir une propriété calculée déclarée dans le controller que
+    nous nommerons <code>filteredLogs</code>.</p>
+    <p><code>filteredLogs</code> est une propriété calculée qui dépend de <code>searchTerm</code> et de <code>content</code>. Cependant, pour écouter les modification apportées à content, qui est un tableau, il faut en plus utiliser la notation <a target="_blank" href="http://emberjs.com/guides/object-model/computed-properties-and-aggregate-data/"><code>.@each</code></a></p>
+
+    <p>Vous devez maintenant écrire la propriété calculée <code>filteredLog</code> qui parcours chaque element de <code>content</code> et ne renvoit que ceux dont le path contient le <code>searchTerm</code> si un searchTerm est saisi</p>
+</script>
+
+<script type="text/x-handlebars" data-template-name="tutorial-solution-search">
+    App.IndexController = Ember.ArrayController.extend({
+        searchTerm: '',
+        filteredLogs: function () {
+
+            var searchTerm = this.get('searchTerm').trim();
+
+            return this.get('content').filter(function (log) {
+                return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
+            });
+        }.property('content.@each', 'searchTerm')
+    });
+
+    &lt;script type="text/x-handlebars" data-template-name="index">
+    <div class="top">
+        <div>{{input type="search" value=searchTerm}}</div>
+    </div>
+
+    <div id="content">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Path</th>
+                <th>Method</th>
+                <th>Status</th>
+                <th>Size</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each log in filteredLogs}}
+            <tr>
+                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
+                <td>{{log.method}}</td>
+                <td>{{log.status}}</td>
+                <td>{{size log.size}}</td>
+                <td>{{log.date}}</td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    &lt;/script>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="tutorial-step-status">
+</script>
+<script type="text/x-handlebars" data-template-name="tutorial-solution-status">
+</script>
+<script type="text/x-handlebars" data-template-name="tutorial-step-method">
+</script>
+<script type="text/x-handlebars" data-template-name="tutorial-solution-method">
+</script>
+<script type="text/x-handlebars" data-template-name="tutorial-step-empty-list">
+</script>
+<script type="text/x-handlebars" data-template-name="tutorial-solution-empty-list">
+</script>
+
 <!--
 
 
