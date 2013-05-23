@@ -274,7 +274,20 @@ $.get('tutorial.html').done(function (content) {
             }
         }),
         Tuto.Step.create({
-            title: "Création d'un lien vers la home dans le header"
+            title: "Création d'un lien vers la home dans le header",
+            detailTemplateName: "tutorial-step-home",
+            solutionTemplateName: "tutorial-solution-home",
+            test: function () {
+                ok(templates.application.indexOf('{{#linkTo') != - 1 &&
+                    templates.application.indexOf('{{/linkTo') != - 1, "Le template application ne contient pas de linkTo");
+
+                ok(templates.application.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
+                ok(templates.application.indexOf('<header>{{#linkToindex}}') != -1, "LinkTo doit être entre les balises header");
+                ok ($('#ember-app div a').attr('href') == "#/", "Le lien du titre pointe vers "+
+                    $('#ember-app div a').attr('href') + " alors qu'il devrait pointer vers '#/'.");
+            }
+
+
         }),
         Tuto.Step.create({
             title: "Création du filtre de recherche"
@@ -292,24 +305,7 @@ $.get('tutorial.html').done(function (content) {
 
         /*
 
-         Tuto.Step.create({
-         title: "Créer une route consultation",
 
-         }),
-         Tuto.Step.create({
-         title: "Créer un lien vers la home",
-         detailTemplateName: "tutorial-step-home",
-         solutionTemplateName: "tutorial-solution-home",
-         test: function () {
-         ok(templates.application.indexOf('{{#linkTo') != - 1 &&
-         templates.application.indexOf('{{/linkTo') != - 1, "Le template application ne contient pas de linkTo");
-
-         ok(templates.application.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
-         ok(templates.application.indexOf('<h1>{{#linkToindex}}') != -1, "LinkTo doit être entre les h1");
-         ok ($('#ember-app div a').attr('href') == "#/", "Le lien du titre pointe vers "+
-         $('#ember-app div a').attr('href') + " alors qu'il devrait pointer vers '#/'.");
-         }
-         }),
          Tuto.Step.create({
          title: "Créer une page d'ajout",
          detailTemplateName: "tutorial-step-add",

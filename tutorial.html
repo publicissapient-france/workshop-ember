@@ -347,21 +347,25 @@ App = Ember.Application.create({
 
 </script>
 
-<!--
-
-
-
 
 <script type="text/x-handlebars" data-template-name="tutorial-step-home">
     <p>Créez maintenant un lien sur le titre de l'application pour retourner à la home page. Par convention, la home page se nomme <code>index</code>.</p>
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-home">
-&lt;script type="text/x-handlebars" data-template-name="application">
-    <h1>\{{#linkTo index}}My Li'l Pony Application\{{/linkTo}}</h1>
-    \{{outlet}}
-&lt;/script>
+    &lt;script type="text/x-handlebars" data-template-name="application">
+    <header>
+        {{#linkTo index}}Xebia / JS{{/linkTo}}
+    </header>
+    {{outlet}}
+    &lt;/script>
 </script>
+
+<!--
+
+
+
+
 
 <script type="text/x-handlebars" data-template-name="tutorial-step-add">
     <p>Il est maintenant nécessaire de pouvoir ajouter de nouveaux poneys. Pour cela, nous allons créer une route, un controller et un template.</p>
