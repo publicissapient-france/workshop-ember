@@ -542,6 +542,17 @@ App = Ember.Application.create({
 
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-step-method">
+    <p>En s'inspirant de ce qui a été fait pour les status, nous allons maintenant réaliser la même chose pour les méthodes HTTP. Tout d'abord, nous allons insérer une liste de méthode dans le controller </p>
+    <pre class="brush: js">
+         statuses: [
+            {code: "PUT", checked: true},
+            {code: 'DELETE', checked: true},
+            {code: "POST", checked: true},
+            {code: 'GET', checked: true}
+         ]
+     </pre>
+    <p>Ensuite, ajoutez dans le template index une liste de checkbox pour chaque méthode, et reliez ces checkbox à l'attribut <code>checked</code> correspondant dans le controller.</p>
+    <p>Enfin, via la propriété <code>filteredLog</code>, cachez les logs dont la méthode est dans la liste des méthodes décochées.</p>
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-solution-method">
 
