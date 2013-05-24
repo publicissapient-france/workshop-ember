@@ -10,36 +10,29 @@ Failed.prototype.constructor = Failed;
  */
 var PonyUnit = (function () {
 
-    var assertionFailed = [], countAssert;
+    var countAssert;
 
     window.execTestsSteps = function (steps, index) {
+
         if (steps.length == 0) return;
         var step = steps.shift();
-        var test = step.test;
+
         countAssert = 0;
         var failed = false;
-
+        var assertionFailed = [];
         try {
-            if (localStorage.lastRuningTestIdx == undefined || localStorage.lastRuningTestIdx <= index || index == 0){
-                var promiseOfTest = test();
-                if (promiseOfTest){
-                    promiseOfTest.done(function(){ execTestsSteps(steps, 1+index); });
-                } else {
-                    execTestsSteps(steps, 1+index);
-                }
-            } else{
-                execTestsSteps(steps, 1+index);
-            }
+            step.test();
+            execTestsSteps(steps, 1 + index);
         } catch (e) {
 
-            localStorage.lastRuningTestIdx = index;
             failed = true;
             if (e instanceof Failed) {
                 assertionFailed.push(e.message);
-            } else{
-                assertionFailed.push("Error :"+ e.message);
+            } else {
+                assertionFailed.push("Error :" + e.message);
             }
-        } finally{
+        } finally {
+
             step.setProperties({
                 executed: true,
                 passed: !failed,
@@ -57,11 +50,11 @@ var PonyUnit = (function () {
     }
 
     window.fail = function (msg) {
-        ok (false, msg)
+        ok(false, msg)
     }
 
-    window.equal = function (a , b, msg) {
-        ok (a === b, msg);
+    window.equal = function (a, b, msg) {
+        ok(a === b, msg);
     }
 
     return {

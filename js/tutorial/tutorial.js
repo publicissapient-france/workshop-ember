@@ -31,7 +31,6 @@ $.get('tutorial.html').done(function (content) {
             }, 200);
 
             $('#tutorial img').on('click', function () {
-                localStorage.removeItem("lastRuningTestIdx");
                 window.location.reload();
             });
         }
