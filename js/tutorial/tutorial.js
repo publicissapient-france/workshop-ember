@@ -1,5 +1,4 @@
 Ember.ENV.TESTING = true;
-window.location.hash = "#/";
 SyntaxHighlighter.defaults['gutter'] = false;
 
 $.get('tutorial.html').done(function (content) {
