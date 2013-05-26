@@ -63,7 +63,8 @@ App = Ember.Application.create({
 <script type="text/x-handlebars" data-template-name="tutorial-step-hello">
     <p>L'application Ember maintenant créée, il est temps d'afficher votre premier texte. </p>
 
-    <p>Créez un nouveau template nommé <code>application</code> avec une balise <code>header</code> content le texte <code>Xebia / JS</code>. </p>
+    <p>Créez un nouveau template nommé <code>application</code> avec une balise <code>header</code> contenant le texte <code>Xebia /
+        JS</code>. </p>
 
     <a href="http://emberjs.com/guides/application/the-application-template" target="_blank">Documentation du template d'application</a>
 </script>
@@ -243,8 +244,11 @@ App = Ember.Application.create({
     <p>Nous allons maintenant créer un
         <a target="_blank" href="http://emberjs.com/guides/templates/writing-helpers/">helper</a>,
         permettant d'afficher la taille du log de façon lisible.</p>
-    <p>Ce helper devra renvoyer la taille suffixé de B si la taille est inférieur à 1024, sinon renvoyé la taille divisé par 1024, arrondi à 2 décimales, et suffixé de kB.
-    Par exemple, si la taille est 103 le helper renverra <strong>103 B</strong>, si la taille est 3045, le helper renvera <strong>2.97 kB</strong></p>
+    <p>Ce helper devra renvoyer la taille suffixée de B si elle est inférieure à 1024. Dans le cas contraire il renverra la taille divisée
+        par 1024,
+        arrondi à 2 décimales, et suffixée de kB.
+    Par exemple, si la taille est 103 le helper renverra <strong>103 B</strong>, si la taille est 3045, le helper renverra <strong>2.97
+            kB</strong></p>
     <p>Créez le helper <code>size</code> et utilisez la taille dans la liste des logs</p>
 </script>
 
@@ -443,7 +447,8 @@ App = Ember.Application.create({
     <p>Le choix de stocker les informations sous forme de liste d'objet plutot que sous la forme par exemple <code>{200:true, 300:true}</code> est lié au fait que
     Ember permet d'écouter les changements de n'importe quel élément d'une liste, mais pas les changements sur n'importe quel attribut d'un objet.</p>
 
-    <p>Au niveau de la propriété <code>filteredCode</code>, nous allons ajouter le fait que l'on affiche pas les status dont le paramètre <code>checked</code> est <code>false</code>.
+    <p>Au niveau de la propriété <code>filteredCode</code>, nous allons ajouter le fait que l'on n'affiche pas les status dont le paramètr
+        e <code>checked</code> est <code>false</code>.
        Pour cela, <code>statuses</code> étant une liste, il faut écouter la propriété <code>checked</code> de chacun de ses éléments à l'aide <a target="_blank" href="http://emberjs.com/guides/object-model/computed-properties-and-aggregate-data/"><code>.@each</code></a>.
     </p>
 
@@ -542,7 +547,8 @@ App = Ember.Application.create({
 
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-step-method">
-    <p>En s'inspirant de ce qui a été fait pour les status, nous allons maintenant réaliser la même chose pour les méthodes HTTP. Tout d'abord, nous allons insérer une liste de méthode dans le controller </p>
+    <p>En s'inspirant de ce qui a été fait pour les status, nous allons maintenant réaliser la même chose pour les méthodes HTTP. Tout
+        d'abord, nous allons insérer une liste de méthodes dans le controller </p>
     <pre class="brush: js">
          statuses: [
             {code: "PUT", checked: true},
@@ -657,7 +663,9 @@ App = Ember.Application.create({
     <p>La liste pouvant être filtrée jusqu'à ne plus avoir de résultat affichable,
         nous allons afficher un message d'erreur lorsque celle-ci est vide.
     </p>
-    <p> Pour cela nous allons utiliser le helper <a href="http://emberjs.com/api/classes/Ember.Handlebars.helpers.html#method_each"><code>{{else}}</code></a> associé à each pour afficher le message <strong>NO RESULTS</strong></p>
+    <p> Pour cela nous allons utiliser le helper <a
+            href="http://emberjs.com/api/classes/Ember.Handlebars.helpers.html#method_each"><code>&#123;&#123;else&#125;&#125;</code></a>
+        associé à each pour afficher le message <strong>NO RESULTS</strong></p>
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-solution-empty-list">
     &lt;script type="text/x-handlebars" data-template-name="index">
