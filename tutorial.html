@@ -654,6 +654,10 @@ App = Ember.Application.create({
     &lt;/script>
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-step-empty-list">
+    <p>La liste pouvant être filtrée jusqu'à ne plus avoir de résultat affichable,
+        nous allons afficher un message d'erreur lorsque celle-ci est vide.
+    </p>
+    <p> Pour cela nous allons utiliser le helper <a href="http://emberjs.com/api/classes/Ember.Handlebars.helpers.html#method_each"><code>{{else}}</code></a> associé à each pour afficher le message <strong>NO RESULTS</strong></p>
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-solution-empty-list">
     &lt;script type="text/x-handlebars" data-template-name="index">
