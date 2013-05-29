@@ -231,6 +231,7 @@
   display: inline-block;
   position: absolute;
   top: 0;
+  bottom: 0;
   overflow: auto;
   height: 100%;
   width: @tutoWidth;
@@ -325,6 +326,14 @@ html, body {
   padding: 0;
   margin: 0;
   width: 100%;
+}
+
+#ember-app {
+  right: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: scroll;
 }
 
 @media screen and (max-width: 1024px) {
