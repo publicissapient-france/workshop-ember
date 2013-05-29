@@ -369,10 +369,10 @@ App = Ember.Application.create({
     <p>Nous allons maintenant créer un champs de recherche permettant de filtrer les résultats affichés.</p>
 
     <p>Pour cela, il faut tout d'abord insérer dans le template index le champ de recherche. Pour cela nous allons utiliser un helper spécifique <a target="_blank" href="http://emberjs.com/blog/2013/04/21/ember-1-0-rc3.html"><code>input</code></a>.
-       Ce helper genere un champs input, qu'il faudra un insérer dans une <code>div</code> dont l'id sera top.
+       Ce helper génére un champ input, qu'il faudra insérer dans une <code>div</code> dont l'id sera <code>top</code>.
     </p>
-    <p>Le helper <code>input</code> permet de préciser le type du champ ainsi que l'attribut dans lequel la valeur sera enregistré.
-    Ici nous voulons que le helper soit de type <code>search</code> et qu'il point vers un attribut nommé <code>searchTerm</code></p>
+    <p>Le helper <code>input</code> permet de préciser le type du champ ainsi que l'attribut dans lequel la valeur sera enregistrée.
+    Ici nous voulons que le helper soit de type <code>search</code> et qu'il pointe vers un attribut nommé <code>searchTerm</code></p>
 
     <p>Nous voulons maintenant que les données soient filtrées au fur et à mesure de la frappe. Le contexte par défaut d'un template étant le controller associé,
     il nous faut ici créer le controller correspondant à la vue index. <a target="_blank" href="http://emberjs.com/guides/routing/defining-your-routes/">Par convention</a>, ce controller sera nommé <code>App.IndexController</code>.</p>
