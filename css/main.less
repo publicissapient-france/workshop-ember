@@ -12,20 +12,6 @@
   box-shadow: @params;
 }
 
-@font-face {
-  font-family: 'IM Fell French Canon';
-  font-style: normal;
-  font-weight: 400;
-  src: local('IM FELL French Canon Roman'), local('IM_FELL_French_Canon_Roman'), url(font.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'IM Fell French Canon';
-  font-style: italic;
-  font-weight: 400;
-  src: local('IM FELL French Canon Italic'), local('IM_FELL_French_Canon_Italic'), url(font-italic.woff) format('woff');
-}
-
 .drop-shadow (@x: 0, @y: 2px, @blur: 4px, @spread: 0, @alpha: 0.35) {
   -webkit-box-shadow: @x @y @blur @spread rgba(0, 0, 0, @alpha);
   -moz-box-shadow: @x @y @blur @spread rgba(0, 0, 0, @alpha);
@@ -198,6 +184,7 @@ header {
   table {
 
     border-spacing: 0;
+    width: 100%;
 
     tr.selected td:nth-child(1):before, #content table tr.selected td:nth-child(1):after {
       content: "";
@@ -305,7 +292,7 @@ Tuto
   min-height: 100%;
   margin-left: 0px;
   box-shadow: 5px 0px 5px gray;
-  font-family: 'IM Fell French Canon', serif;
+  font-family: serif;
   font-style: italic;
   background: url("../img/tutorial-bg.jpg");
   z-index: 10;

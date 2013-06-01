@@ -60,7 +60,6 @@ $.get('tutorial.html').done(function (content) {
             this.toggleProperty("detailIsShownToggler");
             $('.step-detail').not(this.$('.step-detail')).slideUp();
             this.$('.step-detail').stop().slideToggle(this.detailIsShownToggler);
-
         },
         detailIsShown: function () {
             return this.get('step.isActive') || this.detailIsShownToggler;
@@ -129,7 +128,10 @@ $.get('tutorial.html').done(function (content) {
             test: function () {
                 ok(Em.typeOf(App.Store) == 'class', "App.Store n'est pas définie.");
                 ok(App.Store.create() instanceof DS.Store, "App.Store n'est pas de type DS.Store");
-                ok(App.Store.prototype.revision == undefined, "Ember-data n'a plus besoin que l'on lui précise de révision");
+                ok(App.Store.prototype.revision == 12, "La revision actuelle de App.Store est "
+                    + App.Store.prototype.revision + " alors qu'elle devrait être 12");
+                ok(App.Store.prototype.adapter == "DS.RESTAdapter", "La propriété adapter de App.Store est initialisé à "
+                    +App.Store.prototype.adapter +" alors qu'elle devrait être à 'DS.RESTAdapter'");
             }
         }),
         Tuto.Step.create({
@@ -183,9 +185,9 @@ $.get('tutorial.html').done(function (content) {
 
                 ok(Em.TEMPLATES['index'] != undefined, "Le template 'index' n'est pas déclaré.");
 
-                ok (templates.index.indexOf("<div") != -1, "Le template ne contient pas de balise div");
-                ok (templates.index.indexOf("content") != -1, "Le template ne contient pas l'id content");
-                ok (templates.index.indexOf("<table>") != -1, "Le template ne contient pas de balise table");
+                ok (templates.index.indexOf("<div") != -1, "Le template index ne contient pas de balise div");
+                ok (templates.index.indexOf("content") != -1, "Le template index ne contient pas l'id content");
+                ok (templates.index.indexOf("<table>") != -1, "Le template index ne contient pas de balise table");
 
                 ok (templates.index.indexOf("<th>Path</th><th>Method</th><th>Status</th><th>Size</th><th>Time</th>") != -1, "Le template doit contenir entre balise th les colonnes Path, Method, Status, Size, Time dans l'ordre");
                 ok (templates.index.indexOf("<td>") != -1, "Le template ne contient pas de balise td");
@@ -203,11 +205,9 @@ $.get('tutorial.html').done(function (content) {
                 var log = App.Log.createRecord({
                     request :'GET /js/messages_fr.js HTTP/1.1'
                 });
-                ok (typeof log.get('path') != "undefined",
-                    "App.Log.path n'est pas pas définie");
+                ok (typeof log.get('path') != "undefined", "La propriété path de App.Log n'est pas pas définie ou ne renvois rien.");
 
-                ok (typeof log.path != "function",
-                    "App.Log.path n'est pas une proriété calculée mais une fonction, " +
+                ok (typeof log.path != "function", "App.Log.path n'est pas une proriété calculée mais une fonction, " +
                         "on aurait pas oublié '.property(...)' par hasard ?");
 
                 ok (log.get("path") == "/js/messages_fr.js", "Si request = 'GET /js/messages_fr.js HTTP/1.1' path devrait valoir '/js/messages_fr.js' " +
@@ -216,14 +216,12 @@ $.get('tutorial.html').done(function (content) {
                 log.set('request', 'GET /js/messages_en.js HTTP/1.1');
                 ok (log.get("path") == "/js/messages_en.js", "La propriété calculée path ne dépend pas de request");
 
-                ok (templates.index.indexOf("path}}") != -1, "La propriété path n'est pas utilisée dans le template index");
+                ok (templates.index.indexOf("log.path}}") != -1, "La propriété path n'est pas utilisée dans le template index");
 
 
-                ok (typeof log.get('method') != "undefined",
-                    "App.Log.method n'est pas pas définie");
+                ok (typeof log.get('method') != "undefined", "App.Log.method n'est pas pas définie");
 
-                ok (typeof log.method != "function",
-                    "App.Log.method n'est pas une proriété calculée mais une fonction, " +
+                ok (typeof log.method != "function", "App.Log.method n'est pas une proriété calculée mais une fonction, " +
                         "on aurait pas oublié '.property(...)' par hasard ?");
 
                 ok (log.get("method") == "GET", "Si request = 'GET /js/messages_fr.js HTTP/1.1' method devrait valoir 'GET' " +
@@ -242,8 +240,8 @@ $.get('tutorial.html').done(function (content) {
             solutionTemplateName: "tutorial-solution-helper",
             test: function () {
                 ok (helpers.size != undefined, "Le helper 'size' n'est pas définie.");
-                ok (helpers.size(180) === "180 B", "Le helper 'size' doit retourner le nombre passé en argument suffixé de B si ce nombre est inférieur a 1024");
-                ok (helpers.size(2202) === "2.15 kB", "Le helper 'size' doit retourner le nombre passé en argument divisé par 1024 et arrondi à 2 décimales suffixé de kB si ce nombre est supérieur à 1024");
+                ok (helpers.size(180) === "180 B", "Si le on donne 180 au helper il devrait retourner '180 B' or il retourne "+helpers.size(180));
+                ok (helpers.size(2202) === "2.15 kB", "Si le on donne 2202 au helper il devrait retourner '2.15 kB' or il retourne "+helpers.size(2202));
 
                 templateContains("index", "{{size", "Le helper size n'est pas utilisé dans le template index");
             }
@@ -269,13 +267,10 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-home",
             solutionTemplateName: "tutorial-solution-home",
             test: function () {
-                ok(templates.application.indexOf('{{#linkTo') != - 1 &&
-                    templates.application.indexOf('{{/linkTo') != - 1, "Le template application ne contient pas de linkTo");
+                ok(templates.detail.indexOf('{{#linkTo') != - 1 &&
+                    templates.detail.indexOf('{{/linkTo') != - 1, "Le template detail ne contient pas de linkTo");
 
-                ok(templates.application.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
-                ok(templates.application.indexOf('<header>{{#linkToindex}}') != -1, "LinkTo doit être entre les balises header");
-                ok ($('#ember-app div a').attr('href') == "#/", "Le lien du titre pointe vers "+
-                    $('#ember-app div a').attr('href') + " alors qu'il devrait pointer vers '#/'.");
+                ok(templates.detail.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
             }
 
 

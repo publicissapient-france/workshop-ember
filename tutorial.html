@@ -71,7 +71,7 @@ App = Ember.Application.create({
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-hello">
     &lt;script type="text/x-handlebars" data-template-name="application">
-    <header>Xebia / JS</header>
+    <header></header>
     &lt;/script>
 </script>
 
@@ -357,11 +357,9 @@ App = Ember.Application.create({
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-home">
-    &lt;script type="text/x-handlebars" data-template-name="application">
-    <header>
-        {{#linkTo index}}Xebia / JS{{/linkTo}}
-    </header>
-    {{outlet}}
+    &lt;script type="text/x-handlebars" data-template-name="detail">
+    \{{useragent}}
+    \{{#linkTo index}}Retour\{{/linkTo}}
     &lt;/script>
 </script>
 
@@ -398,7 +396,7 @@ App = Ember.Application.create({
 
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div class="top">
-        <div>{{input type="search" value=searchTerm}}</div>
+        <div>\{{input type="search" value=searchTerm}}</div>
     </div>
 
     <div id="content">
@@ -414,15 +412,15 @@ App = Ember.Application.create({
             </tr>
             </thead>
             <tbody>
-            {{#each log in filteredLogs}}
+            \{{#each log in filteredLogs}}
             <tr>
-                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{size log.size}}</td>
-                <td>{{log.date}}</td>
+                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
+                <td>\{{log.method}}</td>
+                <td>\{{log.status}}</td>
+                <td>\{{size log.size}}</td>
+                <td>\{{log.date}}</td>
             </tr>
-            {{/each}}
+            \{{/each}}
             </tbody>
         </table>
     </div>
@@ -444,7 +442,7 @@ App = Ember.Application.create({
             {code: 500, checked: true}
          ]
      </pre>
-    <p>Le choix de stocker les informations sous forme de liste d'objet plutot que sous la forme par exemple <code>{200:true, 300:true}</code> est lié au fait que
+    <p>Le choix de stocker les informations sous forme de liste d'objet plutot que sous la forme par exemple <code>\{200:true, 300:true}</code> est lié au fait que
     Ember permet d'écouter les changements de n'importe quel élément d'une liste, mais pas les changements sur n'importe quel attribut d'un objet.</p>
 
     <p>Au niveau de la propriété <code>filteredCode</code>, nous allons ajouter le fait que l'on n'affiche pas les status dont le paramètr
@@ -502,18 +500,18 @@ App = Ember.Application.create({
 
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div class="top">
-        <div>{{input type="search" value=searchTerm}}</div>
+        <div>\{{input type="search" value=searchTerm}}</div>
     </div>
     <div id="navigation">
 
         <div>HTTP status</div>
         <ul>
-            {{#each status in statuses}}
+            \{{#each status in statuses}}
             <li>
-                {{input type="checkbox" checked=status.checked}}
-                <label {{bindAttr for=status.code}}>{{status.code}}</label>
+                \{{input type="checkbox" checked=status.checked}}
+                <label \{{bindAttr for=status.code}}>\{{status.code}}</label>
             </li>
-            {{/each}}
+            \{{/each}}
         </ul>
 
     </div>
@@ -530,15 +528,15 @@ App = Ember.Application.create({
             </tr>
             </thead>
             <tbody>
-            {{#each log in filteredLogs}}
+            \{{#each log in filteredLogs}}
             <tr>
-                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{size log.size}}</td>
-                <td>{{log.date}}</td>
+                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
+                <td>\{{log.method}}</td>
+                <td>\{{log.status}}</td>
+                <td>\{{size log.size}}</td>
+                <td>\{{log.date}}</td>
             </tr>
-            {{/each}}
+            \{{/each}}
             </tbody>
         </table>
     </div>
@@ -606,7 +604,7 @@ App = Ember.Application.create({
 
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div class="top">
-        <div>{{input type="search" value=searchTerm}}</div>
+        <div>\{{input type="search" value=searchTerm}}</div>
     </div>
     <div id="navigation">
 
@@ -615,7 +613,7 @@ App = Ember.Application.create({
             {{#each status in statuses}}
             <li>
                 {{input type="checkbox" checked=status.checked}}
-                <label {{bindAttr for=status.code}}>{{status.code}}</label>
+                <label {{bindAttr for=status.code}}>\{{status.code}}</label>
             </li>
             {{/each}}
         </ul>
@@ -627,7 +625,7 @@ App = Ember.Application.create({
 
             <li>
                 {{input type="checkbox" checked=method.checked}}
-                <label {{bindAttr for=method.code}}>{{method.code}}</label>
+                <label {{bindAttr for=method.code}}>\{{method.code}}</label>
             </li>
             {{/each}}
         </ul>
@@ -647,11 +645,11 @@ App = Ember.Application.create({
             <tbody>
             {{#each log in filteredLogs}}
             <tr>
-                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{size log.size}}</td>
-                <td>{{log.date}}</td>
+                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
+                <td>\{{log.method}}</td>
+                <td>\{{log.status}}</td>
+                <td>\{{size log.size}}</td>
+                <td>\{{log.date}}</td>
             </tr>
             {{/each}}
             </tbody>
@@ -670,7 +668,7 @@ App = Ember.Application.create({
 <script type="text/x-handlebars" data-template-name="tutorial-solution-empty-list">
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div class="top">
-        <div>{{input type="search" value=searchTerm}}</div>
+        <div>\{{input type="search" value=searchTerm}}</div>
     </div>
     <div id="navigation">
 
@@ -679,7 +677,7 @@ App = Ember.Application.create({
             {{#each status in statuses}}
             <li>
                 {{input type="checkbox" checked=status.checked}}
-                <label {{bindAttr for=status.code}}>{{status.code}}</label>
+                <label {{bindAttr for=status.code}}>\{{status.code}}</label>
             </li>
             {{/each}}
         </ul>
@@ -691,7 +689,7 @@ App = Ember.Application.create({
 
             <li>
                 {{input type="checkbox" checked=method.checked}}
-                <label {{bindAttr for=method.code}}>{{method.code}}</label>
+                <label {{bindAttr for=method.code}}>\{{method.code}}</label>
             </li>
             {{/each}}
         </ul>
@@ -711,11 +709,11 @@ App = Ember.Application.create({
             <tbody>
             {{#each log in filteredLogs}}
             <tr>
-                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{size log.size}}</td>
-                <td>{{log.date}}</td>
+                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
+                <td>\{{log.method}}</td>
+                <td>\{{log.status}}</td>
+                <td>\{{size log.size}}</td>
+                <td>\{{log.date}}</td>
             </tr>
             {{else}}
             <tr>
@@ -749,7 +747,7 @@ App = Ember.Application.create({
     <p>Pour que nos propriétés soient enregistrées dans un objet avant d'être synchronisées par Ember Data,
         il faut créer cet objet au niveau du controller.
         Une solution pour cela est d'indiquer que le modèle correspondant à notre route est un objet simple contenant une propriété id préremplie, par exemple&nbsp;:
-    <code>{id: new Date().getTime()}</code>.
+    <code>\{id: new Date().getTime()}</code>.
         Créez la route <code>App.AddRoute</code> et dans sa méthode modèle, renvoyez l'objet précréé.</p>
 
     <p>Il ne reste plus qu'à créer un bouton dans le formulaire qui enregistrera effectivement le poney dans le store.
