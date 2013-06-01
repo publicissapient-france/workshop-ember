@@ -2,9 +2,11 @@
 <html>
 <head>
     <link href="css/main.less" rel="stylesheet" type="text/less">
-    <link href="css/vendor/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
     <link href="css/vendor/shCore.css" rel="stylesheet" type="text/less">
     <link href="css/vendor/shThemeDefault.css" rel="stylesheet" type="text/less">
+
+    <title>Mois du JS</title>
+    <link rel="icon" type="image/png" href="css/favicon.png">
 </head>
 <body>
 
@@ -19,7 +21,10 @@
 
 <script type="text/x-handlebars" data-template-name="application">
     <header>
-        {{#linkTo index}}Xebia / JS{{/linkTo}}
+        <div>
+            {{input type="text" value=searchTerm}}
+            <a class="search_clear" href="#"></a>
+        </div>
     </header>
     {{outlet}}
 </script>
@@ -31,7 +36,7 @@
 
 <script type="text/x-handlebars" data-template-name="index">
     <div class="top">
-        <div>{{input type="search" value=searchTerm}}</div>
+        <div>{{input type="text" value=searchTerm}}</div>
     </div>
     <div id="navigation">
 
