@@ -12,7 +12,7 @@ var PonyUnit = (function () {
 
     var countAssert;
 
-    window.execTestsSteps = function (steps, index) {
+    window.execTestsSteps = function (steps) {
 
         if (steps.length == 0) return;
         var step = steps.shift();
@@ -22,7 +22,7 @@ var PonyUnit = (function () {
         var assertionFailed = [];
         try {
             step.test();
-            execTestsSteps(steps, 1 + index);
+            execTestsSteps(steps);
         } catch (e) {
 
             failed = true;

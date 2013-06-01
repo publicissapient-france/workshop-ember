@@ -18,7 +18,7 @@ $.get('tutorial.html').done(function (content) {
             SyntaxHighlighter.highlight();
 
             var view = this;
-            execTestsSteps(Tuto.STEPS, 0);
+            execTestsSteps(Tuto.STEPS);
             Em.run.later(function () {
                 var stepIsActive = $(".is-active");
                 if (stepIsActive.length > 0) {
@@ -117,11 +117,9 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-hello",
             solutionTemplateName: "tutorial-solution-hello",
             test: function () {
-
-                ok(Em.TEMPLATES['application'] != undefined,
-                    "Le template 'application' n'est pas déclaré.");
-
-                templateContains("application", "Xebia/JS", "Le template application ne contient pas le bon titre et/ou les bonnes balises.")
+                ok(templates['application'] != undefined, "Le template 'application' n'est pas déclaré.");
+                templateContains("application", "<header>", "Le template application ne contient pas le bon titre et/ou les bonnes balises.");
+                templateContains("application", "</header>", "Le template application ne contient pas le bon titre et/ou les bonnes balises.")
             }
         }),
         Tuto.Step.create({
@@ -131,9 +129,7 @@ $.get('tutorial.html').done(function (content) {
             test: function () {
                 ok(Em.typeOf(App.Store) == 'class', "App.Store n'est pas définie.");
                 ok(App.Store.create() instanceof DS.Store, "App.Store n'est pas de type DS.Store");
-                ok(App.Store.prototype.revision == 12,
-                    "La revision actuelle de App.Store est " + App.Store.prototype.revision
-                        + " alors qu'elle devrait être 12");
+                ok(App.Store.prototype.revision == undefined, "Ember-data n'a plus besoin que l'on lui précise de révision");
             }
         }),
         Tuto.Step.create({
@@ -141,11 +137,8 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-model",
             solutionTemplateName: "tutorial-solution-model",
             test: function () {
-                ok(typeof App.Log != "undefined",
-                    "App.Log n'est pas définie.");
-
-                ok(Em.typeOf(App.Log) == "class",
-                    "App.Log n'est pas une classe ember.");
+                ok(typeof App.Log != "undefined", "App.Log n'est pas définie.");
+                ok(Em.typeOf(App.Log) == "class", "App.Log n'est pas une classe ember.");
 
                 ok(App.Log.createRecord &&
                     App.Log.createRecord() instanceof DS.Model,

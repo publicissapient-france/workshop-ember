@@ -15,7 +15,7 @@ Ember.Handlebars.bootstrap = function (ctx) {
     Ember.$(selectors, ctx)
         .each(function () {
             var script = Ember.$(this);
-            templateName = script.attr('data-template-name') || script.attr('id') || 'application';
+            templateName = script.attr('data-template-name') || script.attr('id') || 'undefined';
             if (templateName.indexOf("tutorial") == -1) {
                 templates[templateName] = script.html().replace(/\s+/g, '');
             }

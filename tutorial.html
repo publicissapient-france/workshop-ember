@@ -113,7 +113,7 @@ App = Ember.Application.create({
 
 <script type="text/x-handlebars" data-template-name="tutorial-step-list">
 
-    <p>Par convention, sur le chemin <strong>/</strong> Ember rend la route <strong>Index</strong>
+    <p>Par convention, sur le chemin '<strong>/</strong>' Ember rend la route <strong>Index</strong>
         (cf <a target="_blank" href="http://emberjs.com/guides/routing/defining-your-routes/">les conventions sur les routes</a>.
         Vous devez donc maintenant définir une route <code>App.IndexRoute</code>, dont le modèle associé sera la liste des logs renvoyés par le modèle.</p>
     <a target="_blank" href="http://emberjs.com/guides/routing/specifying-a-routes-model/">Pour définir une route (il n'y a pas besoin de définir de router pour l'instant, tout se fait par convention)</a>
@@ -144,8 +144,8 @@ App = Ember.Application.create({
     });
 
     &lt;script type="text/x-handlebars" data-template-name="application">
-    <header>Xebia / JS</header>
-    {{outlet}}
+    <header></header>
+    \{{outlet}}
     &lt;/script>
 
     &lt;script type="text/x-handlebars" data-template-name="index">
@@ -161,15 +161,15 @@ App = Ember.Application.create({
         </tr>
         </thead>
         <tbody>
-        {{#each log in content}}
+        \{{#each log in content}}
         <tr>
             <td></td>
             <td></td>
-            <td>{{log.status}}</td>
-            <td>{{log.size}}</td>
-            <td>{{log.date}}</td>
+            <td>\{{log.status}}</td>
+            <td>\{{log.size}}</td>
+            <td>\{{log.date}}</td>
         </tr>
-        {{/each}}
+        \{{/each}}
         </tbody>
     </table>
     </div>
@@ -224,15 +224,15 @@ App = Ember.Application.create({
             </tr>
             </thead>
             <tbody>
-            {{#each log in content}}
+            \{{#each log in content}}
             <tr>
-                <td>{{log.path}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{log.size}}</td>
-                <td>{{log.date}}</td>
+                <td>\{{log.path}}</td>
+                <td>\{{log.method}}</td>
+                <td>\{{log.status}}</td>
+                <td>\{{log.size}}</td>
+                <td>\{{log.date}}</td>
             </tr>
-            {{/each}}
+            \{{/each}}
             </tbody>
         </table>
     </div>
@@ -275,15 +275,15 @@ App = Ember.Application.create({
             </tr>
             </thead>
             <tbody>
-            {{#each log in content}}
+            \{{#each log in content}}
             <tr>
-                <td>{{log.path}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{size log.size}}</td>
-                <td>{{log.date}}</td>
+                <td>\{{log.path}}</td>
+                <td>\{{log.method}}</td>
+                <td>\{{log.status}}</td>
+                <td>\{{size log.size}}</td>
+                <td>\{{log.date}}</td>
             </tr>
-            {{/each}}
+            \{{/each}}
             </tbody>
         </table>
     </div>
@@ -335,15 +335,15 @@ App = Ember.Application.create({
             </tr>
             </thead>
             <tbody>
-            {{#each log in filteredLogs}}
+            \{{#each log in filteredLogs}}
             <tr>
-                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{size log.size}}</td>
-                <td>{{log.date}}</td>
+                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
+                <td>\{{log.method}}</td>
+                <td>\{{log.status}}</td>
+                <td>\{{size log.size}}</td>
+                <td>\{{log.date}}</td>
             </tr>
-            {{/each}}
+            \{{/each}}
             </tbody>
         </table>
     </div>
