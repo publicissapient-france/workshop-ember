@@ -278,27 +278,53 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-home",
             solutionTemplateName: "tutorial-solution-home",
             test: function () {
-
-
-
                 ok(templates.detail.indexOf('{{#linkTo') != - 1 &&
                     templates.detail.indexOf('{{/linkTo') != - 1, "Le template detail ne contient pas de linkTo");
 
-
                 ok(templates.detail.indexOf('{{#linkTo') != - 1 &&
                     templates.detail.indexOf('{{/linkTo') != - 1, "Le template detail ne contient pas de linkTo");
-
-
 
                 ok(templates.detail.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
             }
-
-
         }),
         Tuto.Step.create({
             title: "Création du filtre de recherche",
             detailTemplateName: "tutorial-step-search",
-            solutionTemplateName: "tutorial-solution-search"
+            solutionTemplateName: "tutorial-solution-search",
+            test:function(){
+                templateContains('application', '<div>',"Il n'y a pas de balise div dans la balise header du template application.");
+                templateContains('application', '{{input',"L'helper input n'est pas utilisé dans le template application.");
+                templateContains('application', '<div>{{input',"L'helper input n'est pas au bon endroit. Il doit être dans la div.");
+                ok(templates.application.indexOf("type=\"text\"") != - 1 || templates.application.indexOf("type='text'") != - 1, "Le helper input doit être de type text");
+                templateContains('application','value=searchTerm',"Le helper input doit avoir comme valeur la propriété 'searchTerm'");
+                templateContains('application', '<aclass="search_clear"href="#"></a>',"Il n'y a pas la petite croix dans le champ de recherche.");
+                templateContains('application', '<aclass="search_clear"href="#"></a></div>',"Le petite croix doit être dans la balise div");
+
+                ok (Em.typeOf(App.IndexController) == "class", "App.IndexController n'est pas définie ou n'est pas une classe Ember");
+                ok (App.IndexController.create() instanceof Em.Controller, "App.IndexController n'est pas de type Ember.Controller");
+
+                var indexCtrl = App.IndexController.create({
+                    content : [ Em.Object.create({path:"AA"}), Em.Object.create({path:"BA"}), Em.Object.create({path:"BAB"}) ]
+                });
+                ok (typeof indexCtrl.get('searchTerm') != "undefined", "La propriété searchTerm de IndexController n'est pas définie ou ne renvois rien.");
+                ok (typeof indexCtrl.get('filteredLogs') != "undefined", "La propriété filteredLogs de IndexController n'est pas définie ou ne renvois rien.");
+
+                ok (typeof indexCtrl.filteredLogs != "function", "App.IndexController.filteredLogs n'est pas une proriété calculée mais une fonction, " +
+                    "on aurait pas oublié '.property(...)' par hasard ?");
+
+                indexCtrl.set('searchTerm', '');
+                ok (indexCtrl.get('filteredLogs').length == 3, "Quand searchTerm est vide filteredLogs doit renvoyer toute la liste 'content");
+                indexCtrl.set('searchTerm', 'A');
+                ok (indexCtrl.get('filteredLogs').length == 3, "Si searchTerm='A' et que les logs on tous 'path' qui contient 'A', filteredLogs doit renvoyer toute la liste");
+                indexCtrl.set('searchTerm', 'B');
+                ok (indexCtrl.get('filteredLogs').length == 2, "Si searchTerm='B' et que deux logs on 'path' qui contient 'B', filteredLogs doit seulement renvoyer ces deux éléments");
+                indexCtrl.set('searchTerm', 'BAB');
+                ok (indexCtrl.get('filteredLogs').length == 1 && indexCtrl.get('filteredLogs')[0].path == 'BAB',
+                    "Si searchTerm='BAB' et que seul un log a 'path' qui contient 'BAB', filteredLogs doit seulement renvoyer cet élément");
+
+                indexCtrl.content.pushObject(Em.Object.create({path:"BABA"}));
+                ok (indexCtrl.get('filteredLogs').length == 2, "filteredLog ne prend pas en compte les changements des éléments de content");
+            }
 
         }),
         Tuto.Step.create({

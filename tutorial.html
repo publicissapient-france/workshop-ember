@@ -364,14 +364,15 @@ App = Ember.Application.create({
     &lt;/script>
 </script>
 
+
 <script type="text/x-handlebars" data-template-name="tutorial-step-search">
     <p>Nous allons maintenant créer un champs de recherche permettant de filtrer les résultats affichés.</p>
 
     <p>Pour cela, il faut tout d'abord insérer dans le template index le champ de recherche. Pour cela nous allons utiliser un helper spécifique <a target="_blank" href="http://emberjs.com/blog/2013/04/21/ember-1-0-rc3.html"><code>input</code></a>.
-       Ce helper génére un champ input, qu'il faudra insérer dans une <code>div</code> dont l'id sera <code>top</code>.
+       Ce helper génére un champ input, qu'il faudra insérer dans une <code>div</code> elle même dans la balise <code>&lt;header></code>. Dans cette même div ajouter la code HTML <code>&lt;a class="search_clear" href="#">&lt;/a></code> pour avoir une croix pour vider le champ.
     </p>
     <p>Le helper <code>input</code> permet de préciser le type du champ ainsi que l'attribut dans lequel la valeur sera enregistrée.
-    Ici nous voulons que le helper soit de type <code>search</code> et qu'il pointe vers un attribut nommé <code>searchTerm</code></p>
+    Ici nous voulons que le helper soit de type <code>text</code> et qu'il pointe vers un attribut nommé <code>searchTerm</code></p>
 
     <p>Nous voulons maintenant que les données soient filtrées au fur et à mesure de la frappe. Le contexte par défaut d'un template étant le controller associé,
     il nous faut ici créer le controller correspondant à la vue index. <a target="_blank" href="http://emberjs.com/guides/routing/defining-your-routes/">Par convention</a>, ce controller sera nommé <code>App.IndexController</code>.</p>
@@ -396,10 +397,13 @@ App = Ember.Application.create({
     });
 
     &lt;script type="text/x-handlebars" data-template-name="index">
-    <div class="top">
-        <div>\{{input type="search" value=searchTerm}}</div>
+    <div>
+        \{{input type="text" value=searchTerm}}
+        <a class="search_clear" href="#"></a>
     </div>
+    &lt;/script>
 
+    &lt;script type="text/x-handlebars" data-template-name="index">
     <div id="content">
 
         &lt;table>
@@ -414,13 +418,13 @@ App = Ember.Application.create({
             &lt;/thead>
             &lt;tbody>
             \{{#each log in filteredLogs}}
-            &lt;tr>
-                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
-                &lt;td>\{{log.method}}&lt;/td>
-                &lt;td>\{{log.status}}&lt;/td>
-                &lt;td>\{{size log.size}}&lt;/td>
-                &lt;td>\{{log.date}}&lt;/td>
-            &lt;/tr>
+                \{{#linkTo detail log tagName="tr"}}
+                    &lt;td>\{{log.path}}&lt;/td>
+                    &lt;td>\{{log.method}}&lt;/td>
+                    &lt;td>\{{log.status}}&lt;/td>
+                    &lt;td>\{{size log.size}}&lt;/td>
+                    &lt;td>\{{log.date}}&lt;/td>
+                \{{/linkTo}}
             \{{/each}}
             &lt;/tbody>
         &lt;/table>
@@ -500,9 +504,6 @@ App = Ember.Application.create({
 
 
     &lt;script type="text/x-handlebars" data-template-name="index">
-    <div class="top">
-        <div>\{{input type="search" value=searchTerm}}</div>
-    </div>
     <div id="navigation">
 
         <div>HTTP status</div>
@@ -604,8 +605,9 @@ App = Ember.Application.create({
     });
 
     &lt;script type="text/x-handlebars" data-template-name="index">
-    <div class="top">
-        <div>\{{input type="search" value=searchTerm}}</div>
+    <div>
+        \{{input type="text" value=searchTerm}}
+        <a class="search_clear" href="#"></a>
     </div>
     <div id="navigation">
 
@@ -668,8 +670,9 @@ App = Ember.Application.create({
 </script>
 <script type="text/x-handlebars" data-template-name="tutorial-solution-empty-list">
     &lt;script type="text/x-handlebars" data-template-name="index">
-    <div class="top">
-        <div>\{{input type="search" value=searchTerm}}</div>
+    <div>
+        \{{input type="text" value=searchTerm}}
+        <a class="search_clear" href="#"></a>
     </div>
     <div id="navigation">
 
