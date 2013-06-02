@@ -308,7 +308,8 @@ App = Ember.Application.create({
     <p>Enfin, utilisez le helper <a target="_blank" href="http://emberjs.com/guides/templates/links/">linkTo</a> pour créer un lien vers le détail depuis la liste des logs.
        Attention, un lien <code>linkTo</code> doit toujours prendre en paramètre le même type que le type renvoyé par la méthode <code>model</code> de la route vers laquelle on redirige.
        Ici, on passera donc le log, et pas l'identifiant du log.
-
+       De plus Le helper linkTo est capable d'ajouter un comportement de clique sur toute la ligne du tableau, plutôt que mettre le helper sur une case du tableau, utiliser ça propriété tagName pour
+        préciser que linkTo devrat être rendu sous la forme d'une balise tr, et supprimer la balise tr existante.
     </p>
 </script>
 
@@ -336,13 +337,13 @@ App = Ember.Application.create({
             &lt;/thead>
             &lt;tbody>
             \{{#each log in filteredLogs}}
-            &lt;tr>
-                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
-                &lt;td>\{{log.method}}&lt;/td>
-                &lt;td>\{{log.status}}&lt;/td>
-                &lt;td>\{{size log.size}}&lt;/td>
-                &lt;td>\{{log.date}}&lt;/td>
-            &lt;/tr>
+                \{{#linkTo detail log tagName="tr"}}
+                    &lt;td>\{{log.path}}\&lt;/td>
+                    &lt;td>\{{log.method}}&lt;/td>
+                    &lt;td>\{{log.status}}&lt;/td>
+                    &lt;td>\{{size log.size}}&lt;/td>
+                    &lt;td>\{{log.date}}&lt;/td>
+                \{{#linkTo}}
             \{{/each}}
             &lt;/tbody>
         &lt;/table>

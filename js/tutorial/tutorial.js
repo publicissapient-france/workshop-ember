@@ -258,17 +258,37 @@ $.get('tutorial.html').done(function (content) {
 
                 ok(Em.TEMPLATES['detail'] != undefined, "Le template 'detail' n'est pas déclaré.");
 
+                ok(templates.index.indexOf('<tbody><tr>') == -1, "La balise tr dans le tbody doit être remplacée par un helper linkTo avec la propriété tagName='tr'");
+                ok(templates.index.indexOf('{{#linkTo') != -1, "Le helper linkTo n'est pas utilisé dans l'index");
+
+                ok(templates.index.indexOf("tagName=\"tr\"") != -1 ||
+                    templates.index.indexOf("tagName='tr'") != -1, "LinkTo doit avoir un tagName='tr'");
+
+                ok(templates.index.indexOf("{{#linkTo'detail'") != -1 ||
+                   templates.index.indexOf("{{#linkTodetail") != -1, "LinkTo doit pointer sur la route 'detail'");
+
+                ok(templates.index.indexOf("{{#linkTo'detail'tagName") == -1 &&
+                    templates.index.indexOf("{{#linkTodetailtagName") == -1, "LinkTo doit aussi passer le log courant à la route 'detail'");
+
                 templateContains('detail','useragent}}', "Le useragent n'est pas affiché dans le détail.");
-                templateContains('index', "{{#linkTodetail" , "Le helper linkTo n'est pas utilisé dans le template index.");
             }
         }),
         Tuto.Step.create({
-            title: "Création d'un lien vers la home dans le header",
+            title: "Création d'un lien vers la home dans la consultation",
             detailTemplateName: "tutorial-step-home",
             solutionTemplateName: "tutorial-solution-home",
             test: function () {
+
+
+
                 ok(templates.detail.indexOf('{{#linkTo') != - 1 &&
                     templates.detail.indexOf('{{/linkTo') != - 1, "Le template detail ne contient pas de linkTo");
+
+
+                ok(templates.detail.indexOf('{{#linkTo') != - 1 &&
+                    templates.detail.indexOf('{{/linkTo') != - 1, "Le template detail ne contient pas de linkTo");
+
+
 
                 ok(templates.detail.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
             }
@@ -296,6 +316,5 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-empty-list",
             solutionTemplateName: "tutorial-solution-empty-list"
         })
-
     ];
 });
