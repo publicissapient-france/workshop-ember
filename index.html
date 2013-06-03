@@ -75,13 +75,13 @@
             </thead>
             <tbody>
             {{#each log in filteredLogs}}
-            <tr>
-                <td>{{#linkTo detail log}}{{log.path}}{{/linkTo}}</td>
+            {{#linkTo detail log tagName="tr"}}
+                <td>{{log.path}}</td>
                 <td>{{log.method}}</td>
                 <td>{{log.status}}</td>
                 <td>{{size log.size}}</td>
                 <td>{{log.date}}</td>
-            </tr>
+            {{/linkTo}}
             {{else}}
             <tr>
                 <td colspan="5">NO RESULTS</td>
