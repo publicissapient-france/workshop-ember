@@ -357,9 +357,11 @@ App = Ember.Application.create({
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-home">
-    &lt;script type="text/x-handlebars" data-template-name="detail">
-    \{{useragent}}
-    \{{#linkTo index}}Retour\{{/linkTo}}
+    &lt;script type="text/x-handlebars" data-template-name="application">
+        <header>
+            {{#linkTo index}}<img src="img/logo.png" alt="logo" />{{/linkTo}}
+        </header>
+        {{outlet}}
     &lt;/script>
 </script>
 
