@@ -279,13 +279,10 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-home",
             solutionTemplateName: "tutorial-solution-home",
             test: function () {
-                ok(templates.detail.indexOf('{{#linkTo') != - 1 &&
-                    templates.detail.indexOf('{{/linkTo') != - 1, "Le template detail ne contient pas de linkTo");
+                ok(templates.application.indexOf('{{#linkTo') != - 1 &&
+                    templates.application.indexOf('{{/linkTo') != - 1, "Le template application ne contient pas de linkTo");
 
-                ok(templates.detail.indexOf('{{#linkTo') != - 1 &&
-                    templates.detail.indexOf('{{/linkTo') != - 1, "Le template detail ne contient pas de linkTo");
-
-                ok(templates.detail.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
+                ok(templates.application.indexOf('{{#linkToindex}}') != -1, "LinkTo doit pointer vers index");
             }
         }),
         Tuto.Step.create({
