@@ -290,19 +290,16 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-search",
             solutionTemplateName: "tutorial-solution-search",
             test:function(){
-                templateContains('application', '<div>',"Il n'y a pas de balise div dans la balise header du template application.");
-                templateContains('application', '{{input',"L'helper input n'est pas utilisé dans le template application.");
-                templateContains('application', '<div>{{input',"L'helper input n'est pas au bon endroit. Il doit être dans la div.");
-                ok(templates.application.indexOf("type=\"text\"") != - 1 || templates.application.indexOf("type='text'") != - 1, "Le helper input doit être de type text");
-                templateContains('application','value=searchTerm',"Le helper input doit avoir comme valeur la propriété 'searchTerm'");
-                templateContains('application', '<aclass="search_clear"href="#"></a>',"Il n'y a pas la petite croix dans le champ de recherche.");
-                templateContains('application', '<aclass="search_clear"href="#"></a></div>',"Le petite croix doit être dans la balise div");
+                templateContains('index', '{{input',"L'helper input n'est pas utilisé dans le template application.");
+                templateContains('index', '<div>{{input',"L'helper input n'est pas au bon endroit. Il doit être dans la div.");
+                ok(templates.index.indexOf("type=\"search\"") != - 1 || templates.application.indexOf("type='search'") != - 1, "Le helper input doit être de type search");
+                templateContains('index','value=searchTerm',"Le helper input doit avoir comme valeur la propriété 'searchTerm'");
 
                 ok (Em.typeOf(App.IndexController) == "class", "App.IndexController n'est pas définie ou n'est pas une classe Ember");
                 ok (App.IndexController.create() instanceof Em.ArrayController, "App.IndexController n'est pas de type Ember.ArrayController");
 
                 var indexCtrl = App.IndexController.create({
-                    content : [ Em.Object.create({path:"AA"}), Em.Object.create({path:"BA"}), Em.Object.create({path:"BAB"}) ]
+                    content : [ Em.Object.create({path:"AA", status: 200, method: "GET"}), Em.Object.create({path:"BA", status: 200, method: "GET"}), Em.Object.create({path:"BAB", status: 200, method: "GET"}) ]
                 });
                 ok (typeof indexCtrl.get('searchTerm') != "undefined", "La propriété searchTerm de IndexController n'est pas définie ou ne renvois rien.");
                 ok (typeof indexCtrl.get('filteredLogs') != "undefined", "La propriété filteredLogs de IndexController n'est pas définie ou ne renvois rien.");
@@ -311,6 +308,7 @@ $.get('tutorial.html').done(function (content) {
                     "on aurait pas oublié '.property(...)' par hasard ?");
 
                 indexCtrl.set('searchTerm', '');
+                console.log(indexCtrl.get('filteredLogs').length)
                 ok (indexCtrl.get('filteredLogs').length == 3, "Quand searchTerm est vide filteredLogs doit renvoyer toute la liste 'content");
                 indexCtrl.set('searchTerm', 'A');
                 ok (indexCtrl.get('filteredLogs').length == 3, "Si searchTerm='A' et que les logs on tous 'path' qui contient 'A', filteredLogs doit renvoyer toute la liste");
@@ -320,7 +318,7 @@ $.get('tutorial.html').done(function (content) {
                 ok (indexCtrl.get('filteredLogs').length == 1 && indexCtrl.get('filteredLogs')[0].path == 'BAB',
                     "Si searchTerm='BAB' et que seul un log a 'path' qui contient 'BAB', filteredLogs doit seulement renvoyer cet élément");
 
-                indexCtrl.content.pushObject(Em.Object.create({path:"BABA"}));
+                indexCtrl.content.pushObject(Em.Object.create({path:"BABA", status: 200, method: "GET"}));
                 ok (indexCtrl.get('filteredLogs').length == 2, "filteredLog ne prend pas en compte les changements des éléments de content");
             }
 
