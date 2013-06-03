@@ -472,7 +472,8 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-empty-list",
             solutionTemplateName: "tutorial-solution-empty-list",
             test:function(){
-                fail('fin');
+                templateContains("index", "{{else}}", "Le helper else n'est pas utilisé dans l'index");
+
             }
         })
     ];
