@@ -301,7 +301,7 @@ $.get('tutorial.html').done(function (content) {
                 templateContains('application', '<aclass="search_clear"href="#"></a></div>',"Le petite croix doit être dans la balise div");
 
                 ok (Em.typeOf(App.IndexController) == "class", "App.IndexController n'est pas définie ou n'est pas une classe Ember");
-                ok (App.IndexController.create() instanceof Em.Controller, "App.IndexController n'est pas de type Ember.Controller");
+                ok (App.IndexController.create() instanceof Em.ArrayController, "App.IndexController n'est pas de type Ember.ArrayController");
 
                 var indexCtrl = App.IndexController.create({
                     content : [ Em.Object.create({path:"AA"}), Em.Object.create({path:"BA"}), Em.Object.create({path:"BAB"}) ]
