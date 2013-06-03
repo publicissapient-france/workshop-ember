@@ -21,22 +21,21 @@
 
 <script type="text/x-handlebars" data-template-name="application">
     <header>
-        <div>
-            {{input type="text" value=searchTerm}}
-            <a class="search_clear" href="#"></a>
-        </div>
+        {{#linkTo index}}<img src="img/logo.png" alt="logo" />{{/linkTo}}
     </header>
     {{outlet}}
 </script>
 
 <script type="text/x-handlebars" data-template-name="detail">
+    <div id="content">
     User agent: {{content.useragent}}
+    </div>
 </script>
 
 
 <script type="text/x-handlebars" data-template-name="index">
     <div class="top">
-        <div>{{input type="text" value=searchTerm}}</div>
+        <div>{{input type="search" value=searchTerm}}</div>
     </div>
     <div id="navigation">
 
