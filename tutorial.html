@@ -65,7 +65,8 @@ App = Ember.Application.create({
 
     <p>Créez un nouveau template nommé <code>application</code> avec une balise <code>header</code> contenant une balise <code>img</code> point vers le fichier <code>img/logo.png</code>. </p>
 
-    <a href="http://emberjs.com/guides/application/the-application-template" target="_blank">Documentation du template d'application</a>
+    <a href="http://emberjs.com/guides/application/the-application-template" target="_blank">Documentation du template d'application</a><br />
+    <a href="http://emberjs.com/guides/templates/handlebars-basics" target="_blank">Documentation des templates, et de comment les nommer</a>
 </script>
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-hello">
@@ -143,7 +144,7 @@ App = Ember.Application.create({
     });
 
     &lt;script type="text/x-handlebars" data-template-name="application">
-    <header></header>
+    <header><img src="img/logo.png" /></header>
     \{{outlet}}
     &lt;/script>
 
@@ -256,7 +257,7 @@ App = Ember.Application.create({
         if (number > 1024) {
             return (number / 1024).toFixed(2).toString() + ' kB';
         } else {
-            return number.toString() + ' B';
+            return number + ' B';
         }
     });
 
@@ -318,7 +319,7 @@ App = Ember.Application.create({
     });
 
     &lt;script type="text/x-handlebars" data-template-name="detail">
-        User agent: {{content.useragent}}
+        User agent: \{{content.useragent}}
     &lt;/script>
 
     &lt;script type="text/x-handlebars" data-template-name="index">
@@ -342,7 +343,7 @@ App = Ember.Application.create({
                     &lt;td>\{{log.status}}&lt;/td>
                     &lt;td>\{{size log.size}}&lt;/td>
                     &lt;td>\{{log.date}}&lt;/td>
-                \{{#linkTo}}
+                \{{/linkTo}}
             \{{/each}}
             &lt;/tbody>
         &lt;/table>
@@ -359,9 +360,9 @@ App = Ember.Application.create({
 <script type="text/x-handlebars" data-template-name="tutorial-solution-home">
     &lt;script type="text/x-handlebars" data-template-name="application">
         <header>
-            {{#linkTo index}}<img src="img/logo.png" alt="logo" />{{/linkTo}}
+            \{{#linkTo index}}<img src="img/logo.png" alt="logo" />\{{/linkTo}}
         </header>
-        {{outlet}}
+        \{{outlet}}
     &lt;/script>
 </script>
 
@@ -397,14 +398,11 @@ App = Ember.Application.create({
         }.property('content.@each', 'searchTerm')
     });
 
+
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div>
         \{{input type="search" value=searchTerm}}
-        <a class="search_clear" href="#"></a>
     </div>
-    &lt;/script>
-
-    &lt;script type="text/x-handlebars" data-template-name="index">
     <div id="content">
 
         &lt;table>
@@ -610,24 +608,24 @@ App = Ember.Application.create({
 
         <div>HTTP status</div>
         <ul>
-            {{#each status in statuses}}
+            \{{#each status in statuses}}
             <li>
-                {{input type="checkbox" checked=status.checked}}
-                <label {{bindAttr for=status.code}}>\{{status.code}}</label>
+                \{{input type="checkbox" checked=status.checked}}
+                <label \{{bindAttr for=status.code}}>\{{status.code}}</label>
             </li>
-            {{/each}}
+            \{{/each}}
         </ul>
         <br>
 
         <div>HTTP type</div>
         <ul>
-            {{#each method in methods }}
+            \{{#each method in methods }}
 
             <li>
-                {{input type="checkbox" checked=method.checked}}
-                <label {{bindAttr for=method.code}}>\{{method.code}}</label>
+                \{{input type="checkbox" checked=method.checked}}
+                <label \{{bindAttr for=method.code}}>\{{method.code}}</label>
             </li>
-            {{/each}}
+            \{{/each}}
         </ul>
     </div>
     <div id="content">
@@ -671,24 +669,24 @@ App = Ember.Application.create({
 
         <div>HTTP status</div>
         <ul>
-            {{#each status in statuses}}
+            \{{#each status in statuses}}
             <li>
-                {{input type="checkbox" checked=status.checked}}
-                <label {{bindAttr for=status.code}}>\{{status.code}}</label>
+                \{{input type="checkbox" checked=status.checked}}
+                <label \{{bindAttr for=status.code}}>\{{status.code}}</label>
             </li>
-            {{/each}}
+            \{{/each}}
         </ul>
         <br>
 
         <div>HTTP type</div>
         <ul>
-            {{#each method in methods }}
+            \{{#each method in methods }}
 
             <li>
-                {{input type="checkbox" checked=method.checked}}
-                <label {{bindAttr for=method.code}}>\{{method.code}}</label>
+                \{{input type="checkbox" checked=method.checked}}
+                <label \{{bindAttr for=method.code}}>\{{method.code}}</label>
             </li>
-            {{/each}}
+            \{{/each}}
         </ul>
     </div>
     <div id="content">
@@ -704,7 +702,7 @@ App = Ember.Application.create({
             &lt;/tr>
             &lt;/thead>
             &lt;tbody>
-            {{#each log in filteredLogs}}
+        \{{#each log in filteredLogs}}
             &lt;tr>
                 &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
                 &lt;td>\{{log.method}}&lt;/td>
@@ -712,11 +710,11 @@ App = Ember.Application.create({
                 &lt;td>\{{size log.size}}&lt;/td>
                 &lt;td>\{{log.date}}&lt;/td>
             &lt;/tr>
-            {{else}}
+        \{{else}}
             &lt;tr>
                 &lt;td colspan="5">NO RESULTS&lt;/td>
             &lt;/tr>
-            {{/each}}
+        \{{/each}}
             &lt;/tbody>
         &lt;/table>
     </div>

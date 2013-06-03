@@ -75,7 +75,7 @@ app.get('/logs', function (req, res) {
         });
     }
 
-    res.send({'logs': logs.slice(1, 30)});
+    res.send({'logs': logs.slice(1, 29)});
 });
 
 app.get('/logs/:id', function (req, res) {
