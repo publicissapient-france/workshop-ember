@@ -44,7 +44,7 @@
             {{#each status in statuses}}
             <li>
                 {{input type="checkbox" checked=status.checked}}
-                <label {{bindAttr for=status.code}}>{{status.code}}</label>
+                <label>{{status.code}}</label>
             </li>
             {{/each}}
         </ul>
@@ -56,7 +56,7 @@
 
             <li>
                 {{input type="checkbox" checked=method.checked}}
-                <label {{bindAttr for=method.code}}>{{method.code}}</label>
+                <label>{{method.code}}</label>
             </li>
             {{/each}}
         </ul>

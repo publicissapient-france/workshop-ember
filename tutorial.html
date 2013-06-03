@@ -254,10 +254,13 @@ App = Ember.Application.create({
 
 <script type="text/x-handlebars" data-template-name="tutorial-solution-helper">
     Ember.Handlebars.registerBoundHelper('size', function (number) {
+        if (number == undefined){
+            return "";
+        }
         if (number > 1024) {
             return (number / 1024).toFixed(2).toString() + ' kB';
         } else {
-            return number + ' B';
+            return number.toString() + ' B';
         }
     });
 
@@ -437,19 +440,19 @@ App = Ember.Application.create({
     <p>Tout d'abord, nous allons créer une liste de status au niveau du controller de la forme : </p>
      <pre class="brush: js">
          statuses: [
-            {code: 200, checked: true},
-            {code: 201, checked: true},
-            {code: 304, checked: true},
-            {code: 400, checked: true},
-            {code: 403, checked: true},
-            {code: 404, checked: true},
-            {code: 500, checked: true}
-         ]
+            Em.Object.create({code: 200, checked: true}),
+            Em.Object.create({code: 201, checked: true}),
+            Em.Object.create({code: 304, checked: true}),
+            Em.Object.create({code: 400, checked: true}),
+            Em.Object.create({code: 403, checked: true}),
+            Em.Object.create({code: 404, checked: true}),
+            Em.Object.create({code: 500, checked: true})
+        ]
      </pre>
-    <p>Le choix de stocker les informations sous forme de liste d'objet plutot que sous la forme par exemple <code>\{200:true, 300:true}</code> est lié au fait que
+    <p>Le choix de stocker les informations sous forme de liste d'objet plutot que sous la forme par exemple <code>{200:true, 300:true}</code> est lié au fait que
     Ember permet d'écouter les changements de n'importe quel élément d'une liste, mais pas les changements sur n'importe quel attribut d'un objet.</p>
 
-    <p>Au niveau de la propriété <code>filteredCode</code>, nous allons ajouter le fait que l'on n'affiche pas les status dont le paramètr
+    <p>Au niveau de la propriété <code>filteredLogs</code>, nous allons ajouter le fait que l'on n'affiche pas les status dont le paramètr
         e <code>checked</code> est <code>false</code>.
        Pour cela, <code>statuses</code> étant une liste, il faut écouter la propriété <code>checked</code> de chacun de ses éléments à l'aide <a target="_blank" href="http://emberjs.com/guides/object-model/computed-properties-and-aggregate-data/"><code>.@each</code></a>.
     </p>
@@ -459,7 +462,7 @@ App = Ember.Application.create({
         Dans chaque <code>li</code>, mettez y une checkbox en utilisant le helper <code>input</code> vu précédemment. Ce helper possède une propriété checked qui permet
         d'indiquer à quel propriété l'état de la checkbox est associé.
         Vous pouvez vous inspirer de <a target="_blank" href="http://emberjs.com/api/classes/Ember.Checkbox.html">Ember.Checkbox</a> dont le helper <code>input type="checkbox"</code>
-        est un alias.
+        est un alias. Un input checkbox est toujours accompagné d'un label. Placer en dessous du helper input une balise <code>label</code> contenant le code du status courant.
     </p>
 
 </script>
@@ -468,13 +471,13 @@ App = Ember.Application.create({
 
         searchTerm: '',
         statuses: [
-            {code: 200, checked: true},
-            {code: 201, checked: true},
-            {code: 304, checked: true},
-            {code: 400, checked: true},
-            {code: 403, checked: true},
-            {code: 404, checked: true},
-            {code: 500, checked: true}
+            Em.Object.create({code: 200, checked: true}),
+            Em.Object.create({code: 201, checked: true}),
+            Em.Object.create({code: 304, checked: true}),
+            Em.Object.create({code: 400, checked: true}),
+            Em.Object.create({code: 403, checked: true}),
+            Em.Object.create({code: 404, checked: true}),
+            Em.Object.create({code: 500, checked: true})
         ],
 
         filteredLogs: function () {
@@ -530,13 +533,13 @@ App = Ember.Application.create({
             &lt;/thead>
             &lt;tbody>
             \{{#each log in filteredLogs}}
-            &lt;tr>
-                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
+            \{{#linkTo detail log tagName="tr"}}
+                &lt;td>\{{log.path}}&lt;/td>
                 &lt;td>\{{log.method}}&lt;/td>
                 &lt;td>\{{log.status}}&lt;/td>
                 &lt;td>\{{size log.size}}&lt;/td>
                 &lt;td>\{{log.date}}&lt;/td>
-            &lt;/tr>
+            \{{/linkTo}}
             \{{/each}}
             &lt;/tbody>
         &lt;/table>
@@ -549,12 +552,12 @@ App = Ember.Application.create({
     <p>En s'inspirant de ce qui a été fait pour les status, nous allons maintenant réaliser la même chose pour les méthodes HTTP. Tout
         d'abord, nous allons insérer une liste de méthodes dans le controller </p>
     <pre class="brush: js">
-         statuses: [
-            {code: "PUT", checked: true},
-            {code: 'DELETE', checked: true},
-            {code: "POST", checked: true},
-            {code: 'GET', checked: true}
-         ]
+         methods: [
+            Em.Object.create({code: "PUT", checked: true}),
+            Em.Object.create({code: 'DELETE', checked: true}),
+            Em.Object.create({code: "POST", checked: true}),
+            Em.Object.create({code: 'GET', checked: true})
+        ]
      </pre>
     <p>Ensuite, ajoutez dans le template index une liste de checkbox pour chaque méthode, et reliez ces checkbox à l'attribut <code>checked</code> correspondant dans le controller.</p>
     <p>Enfin, via la propriété <code>filteredLog</code>, cachez les logs dont la méthode est dans la liste des méthodes décochées.</p>
@@ -574,10 +577,10 @@ App = Ember.Application.create({
             {code: 500, checked: true}
         ],
         methods: [
-            {code: "PUT", checked: true},
-            {code: 'DELETE', checked: true},
-            {code: "POST", checked: true},
-            {code: 'GET', checked: true}
+            Em.Object.create({code: "PUT", checked: true}),
+            Em.Object.create({code: 'DELETE', checked: true}),
+            Em.Object.create({code: "POST", checked: true}),
+            Em.Object.create({code: 'GET', checked: true})
         ],
 
         filteredLogs: function () {
@@ -642,13 +645,13 @@ App = Ember.Application.create({
             &lt;/thead>
             &lt;tbody>
             {{#each log in filteredLogs}}
-            &lt;tr>
-                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
+            \{{#linkTo detail log tagName="tr"}}
+                &lt;td>\{{log.path}}&lt;/td>
                 &lt;td>\{{log.method}}&lt;/td>
                 &lt;td>\{{log.status}}&lt;/td>
                 &lt;td>\{{size log.size}}&lt;/td>
                 &lt;td>\{{log.date}}&lt;/td>
-            &lt;/tr>
+            \{{/linkTo}}
             {{/each}}
             &lt;/tbody>
         &lt;/table>

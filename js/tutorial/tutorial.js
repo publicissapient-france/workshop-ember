@@ -236,13 +236,21 @@ $.get('tutorial.html').done(function (content) {
 
         }),
         Tuto.Step.create({
-            title: "Création de helpers",
+            title: "Création de helper",
             detailTemplateName: "tutorial-step-helper",
             solutionTemplateName: "tutorial-solution-helper",
             test: function () {
                 ok (helpers.size != undefined, "Le helper 'size' n'est pas définie.");
                 ok (helpers.size(180) === "180 B", "Si le on donne 180 au helper il devrait retourner '180 B' or il retourne "+helpers.size(180));
                 ok (helpers.size(2202) === "2.15 kB", "Si le on donne 2202 au helper il devrait retourner '2.15 kB' or il retourne "+helpers.size(2202));
+                try{
+                    ok(helpers.size(undefined) === "", "Si l'on donne undefined au helper size, il doit renvoyer \"\"");
+                } catch (e){
+                    if (e instanceof Failed) {
+                        throw e;
+                    }
+                    fail("Si l'on donne undefined au helper size il ne doit pas avoir d'erreur");
+                }
 
                 templateContains("index", "{{size", "Le helper size n'est pas utilisé dans le template index");
             }
@@ -298,7 +306,11 @@ $.get('tutorial.html').done(function (content) {
                 ok (App.IndexController.create() instanceof Em.ArrayController, "App.IndexController n'est pas de type Ember.ArrayController");
 
                 var indexCtrl = App.IndexController.create({
-                    content : [ Em.Object.create({path:"AA", status: 200, method: "GET"}), Em.Object.create({path:"BA", status: 200, method: "GET"}), Em.Object.create({path:"BAB", status: 200, method: "GET"}) ]
+                    content : [
+                        Em.Object.create({path:"AA", status: 200, method: "GET"}),
+                        Em.Object.create({path:"BA", status: 200, method: "GET"}),
+                        Em.Object.create({path:"BAB", status: 200, method: "GET"})
+                    ]
                 });
                 ok (typeof indexCtrl.get('searchTerm') != "undefined", "La propriété searchTerm de IndexController n'est pas définie ou ne renvois rien.");
                 ok (typeof indexCtrl.get('filteredLogs') != "undefined", "La propriété filteredLogs de IndexController n'est pas définie ou ne renvois rien.");
@@ -307,7 +319,6 @@ $.get('tutorial.html').done(function (content) {
                     "on aurait pas oublié '.property(...)' par hasard ?");
 
                 indexCtrl.set('searchTerm', '');
-                console.log(indexCtrl.get('filteredLogs').length)
                 ok (indexCtrl.get('filteredLogs').length == 3, "Quand searchTerm est vide filteredLogs doit renvoyer toute la liste 'content");
                 indexCtrl.set('searchTerm', 'A');
                 ok (indexCtrl.get('filteredLogs').length == 3, "Si searchTerm='A' et que les logs on tous 'path' qui contient 'A', filteredLogs doit renvoyer toute la liste");
@@ -325,17 +336,144 @@ $.get('tutorial.html').done(function (content) {
         Tuto.Step.create({
             title: "Création du filtre status",
             detailTemplateName: "tutorial-step-status",
-            solutionTemplateName: "tutorial-solution-status"
+            solutionTemplateName: "tutorial-solution-status",
+            test:function(){
+
+                var indexCtrl = App.IndexController.createWithMixins({
+                    content : [
+                        Em.Object.create({path:"AA", status: 400, method: "GET"}),
+                        Em.Object.create({path:"BA", status: 200, method: "GET"}),
+                        Em.Object.create({path:"BAB", status: 200, method: "GET"})
+                    ],
+                    _filteredLogsChangeFlag:false,
+
+                    onChange:function(){
+                        this.set('_filteredLogsChangeFlag', true);
+                    }.observesBefore("filteredLogs"),
+
+                    isFilteredLogsHasChanged:function(){
+                        var lastFilteredLogsChangeFlagValue = this._filteredLogsChangeFlag;
+                        this.set('_filteredLogsChangeFlag', false);
+                        return lastFilteredLogsChangeFlagValue
+                    }.property().volatile()
+                });
+
+                var toggleStatusChecked = function (statusCode){
+                    var status = indexCtrl.statuses.find(function(currentStatus){
+                        return statusCode == currentStatus.code;
+                    });
+                    status.toggleProperty('checked');
+                }
+
+                ok (typeof indexCtrl.get('statuses') != "undefined", "La propriété statuses n'existe pas encore.");
+                ok (indexCtrl.get('statuses').length == 7, "Statuses ne contient pas le bon nombre d'élément ou n'est pas un tableau");
+
+                ok (indexCtrl.get('filteredLogs').length == 3, "Si tous les status sont cochés on doit retourner toute la liste");
+
+                toggleStatusChecked(400);
+                ok (indexCtrl.get('isFilteredLogsHasChanged'), "filteredLogs n'est pas data-bindé sur la valeur checked de chaque élément de statues.")
+
+                ok (indexCtrl.get('filteredLogs').length == 2, "Si on décohe uniquement 400 et que 'content' " +
+                    "contient un log avec un code http égal à 400, il faut le filter.");
+
+                toggleStatusChecked(400);
+                toggleStatusChecked(200);
+                ok (indexCtrl.get('filteredLogs').length == 1 && indexCtrl.get('filteredLogs')[0].get('path') == "AA",
+                    "Si on décohe 200 uniquement et il n'y qu'un log dans 'content' qui n'a pas de code http égal à 200," +
+                        "alors filteredLogs renvois uniquement ce log");
+
+                toggleStatusChecked(200); // reset
+
+                ok ($('#ember-app .ember-view #navigation').length > 0, "Il n'y a pas de div avec un id navigation dans l'index");
+                ok ($('#ember-app .ember-view #navigation div:eq(0)').text() == "HTTP status",
+                    "Il n'y a pas de div contenant le text \"HTTP status\" dans la div avec un id navigation, dans l'index");
+
+                ok ($('#ember-app .ember-view #navigation ul:eq(0)').length > 0, "Il n'y a pas de ul dans la div navigation");
+                templateContains('index', "<ul>{{#each", "Le helper each n'est pas utilisé dans l'index");
+                templateContains('index', "}}<li>", "Le helper each doit être placé entre ul et li");
+                templateContains('index', "statuses}}<li>", "Le helper each doit itérer la liste statuses");
+                ok ($('#ember-app .ember-view #navigation ul:eq(0) li').length > 0, "Il n'y a pas de li dans le ul dans la div navigation");
+
+                templateContains('index', "{{input", "Le helper input n'est pas utilisé dans l'index");
+                ok(templates.index.indexOf("{{inputtype=\"checkbox\"") != -1 ||
+                    templates.index.indexOf("{{inputtype='checkbox'") != -1, "Le helper input doit être de type checkbox");
+                ok ($('#ember-app .ember-view #navigation ul:eq(0) li input[type="checkbox"]').length > 0, "Le helper input devrait être dans les li");
+
+                ok ($('#ember-app .ember-view #navigation ul:eq(0) li label').length > 0, "La balise label n'est pas utiliser dans les li");
+                templateContains("index", "code}}</label>", "Le code HTTP n'est pas dans le label");
+            }
         }),
         Tuto.Step.create({
             title: "Création du filtre method",
             detailTemplateName: "tutorial-step-method",
-            solutionTemplateName: "tutorial-solution-method"
+            solutionTemplateName: "tutorial-solution-method",
+            test:function(){
+
+                var indexCtrl = App.IndexController.createWithMixins({
+                    content : [
+                        Em.Object.create({path:"AA", status: 400, method: "PUT"}),
+                        Em.Object.create({path:"BA", status: 200, method: "GET"}),
+                        Em.Object.create({path:"BAB", status: 200, method: "GET"})
+                    ],
+                    _filteredLogsChangeFlag:false,
+
+                    onChange:function(){
+                        this.set('_filteredLogsChangeFlag', true);
+                    }.observesBefore("filteredLogs"),
+
+                    isFilteredLogsHasChanged:function(){
+                        var lastFilteredLogsChangeFlagValue = this._filteredLogsChangeFlag;
+                        this.set('_filteredLogsChangeFlag', false);
+                        return lastFilteredLogsChangeFlagValue
+                    }.property().volatile()
+                });
+
+                var toggleMethodChecked = function (code){
+                    var method = indexCtrl.methods.find(function(currentMethod){
+                        return code == currentMethod.code;
+                    });
+                    method.toggleProperty('checked');
+                }
+
+                ok (typeof indexCtrl.get('methods') != "undefined", "La propriété methods n'existe pas encore.");
+                ok (indexCtrl.get('methods').length == 4, "Methods ne contient pas le bon nombre d'élément ou n'est pas un tableau");
+
+                ok (indexCtrl.get('filteredLogs').length == 3, "Si tous les méthodes HTTP sont cochées on doit retourner toute la liste");
+
+                toggleMethodChecked("PUT");
+                ok (indexCtrl.get('isFilteredLogsHasChanged'), "filteredLogs n'est pas data-bindé sur la valeur checked de chaque élément de methods.")
+
+                ok (indexCtrl.get('filteredLogs').length == 2, "Si on décohe uniquement PUT et que 'content' " +
+                    "contient un log avec le verbe HTTP 'PUT', il faut le filter.");
+
+                toggleMethodChecked("PUT");
+                toggleMethodChecked("GET");
+
+                ok (indexCtrl.get('filteredLogs').length == 1 && indexCtrl.get('filteredLogs')[0].get('path') == "AA",
+                    "Si on décohe GET uniquement et il n'y qu'un log dans 'content' qui n'a pas de verbe HTTP GET," +
+                        "alors filteredLogs renvois uniquement ce log");
+
+                toggleMethodChecked("GET"); // reset
+
+                ok ($('#ember-app .ember-view #navigation div:eq(1)').text() == "HTTP type",
+                    "Il n'y a pas de div contenant le text \"HTTP type\" dans la div avec un id navigation, dans l'index");
+
+                ok ($('#ember-app .ember-view #navigation ul:eq(1)').length > 0, "Il n'y a pas de ul dans la div navigation");
+                templateContains('index', "methods}}<li>", "Le helper each doit itérer la liste methods");
+                ok ($('#ember-app .ember-view #navigation ul:eq(1) li').length > 0, "Il n'y a pas de li dans le deuxième ul dans la div navigation");
+
+                ok ($('#ember-app .ember-view #navigation ul:eq(1) li input[type="checkbox"]').length > 0, "Le helper input devrait être dans les li");
+
+                ok ($('#ember-app .ember-view #navigation ul:eq(1) li label').length > 0, "La balise label n'est pas utiliser dans les li");
+            }
         }),
         Tuto.Step.create({
             title: "Gérer les listes vides",
             detailTemplateName: "tutorial-step-empty-list",
-            solutionTemplateName: "tutorial-solution-empty-list"
+            solutionTemplateName: "tutorial-solution-empty-list",
+            test:function(){
+                fail('fin');
+            }
         })
     ];
 });

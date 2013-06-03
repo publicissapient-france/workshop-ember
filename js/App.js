@@ -36,19 +36,19 @@ App.IndexController = Ember.ArrayController.extend({
 
     searchTerm: '',
     statuses: [
-        {code: 200, checked: true},
-        {code: 201, checked: true},
-        {code: 304, checked: true},
-        {code: 400, checked: true},
-        {code: 403, checked: true},
-        {code: 404, checked: true},
-        {code: 500, checked: true}
+        Em.Object.create({code: 200, checked: true}),
+        Em.Object.create({code: 201, checked: true}),
+        Em.Object.create({code: 304, checked: true}),
+        Em.Object.create({code: 400, checked: true}),
+        Em.Object.create({code: 403, checked: true}),
+        Em.Object.create({code: 404, checked: true}),
+        Em.Object.create({code: 500, checked: true})
     ],
     methods: [
-        {code: "PUT", checked: true},
-        {code: 'DELETE', checked: true},
-        {code: "POST", checked: true},
-        {code: 'GET', checked: true}
+        Em.Object.create({code: "PUT", checked: true}),
+        Em.Object.create({code: 'DELETE', checked: true}),
+        Em.Object.create({code: "POST", checked: true}),
+        Em.Object.create({code: 'GET', checked: true})
     ],
 
     filteredLogs: function () {
@@ -65,13 +65,12 @@ App.IndexController = Ember.ArrayController.extend({
         var searchTerm = this.get('searchTerm').trim();
 
         return this.get('content').filter(function (log) {
-
             return statuses.indexOf(log.get('status')) != -1;
         }).filter(function (log) {
-                return methods.indexOf(log.get('method')) != -1;
-            }).filter(function (log) {
-                return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
-            });
+            return methods.indexOf(log.get('method')) != -1;
+        }).filter(function (log) {
+            return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
+        });
     }.property('content.@each', 'methods.@each.checked', 'statuses.@each.checked', 'searchTerm')
 
 
@@ -84,6 +83,9 @@ App.Router.map(function () {
 
 
 Ember.Handlebars.registerBoundHelper('size', function (number) {
+    if (number == undefined){
+        return "";
+    }
     if (number > 1024) {
         return (number / 1024).toFixed(2).toString() + ' kB';
     } else {
