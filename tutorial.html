@@ -149,30 +149,30 @@ App = Ember.Application.create({
     &lt;/script>
 
     &lt;script type="text/x-handlebars" data-template-name="index">
-    <div id="content">
-    <table>
-        <thead>
-        <tr>
-            <th>Path</th>
-            <th>Method</th>
-            <th>Status</th>
-            <th>Size</th>
-            <th>Time</th>
-        </tr>
-        </thead>
-        <tbody>
+    &lt;div id="content">
+    &lt;table>
+        &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+        &lt;/thead>
+        &lt;tbody>
         \{{#each log in content}}
-        <tr>
-            <td></td>
-            <td></td>
-            <td>\{{log.status}}</td>
-            <td>\{{log.size}}</td>
-            <td>\{{log.date}}</td>
-        </tr>
+            &lt;tr>
+                &lt;td>&lt;/td>
+                &lt;td>&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
         \{{/each}}
-        </tbody>
-    </table>
-    </div>
+        &lt;/tbody>
+    &lt;/table>
+    &lt;/div>
     &lt;/script>
 </script>
 
@@ -213,28 +213,28 @@ App = Ember.Application.create({
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div id="content">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
+        &lt;table>
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
             \{{#each log in content}}
-            <tr>
-                <td>\{{log.path}}</td>
-                <td>\{{log.method}}</td>
-                <td>\{{log.status}}</td>
-                <td>\{{log.size}}</td>
-                <td>\{{log.date}}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>\{{log.path}}&lt;/td>
+                &lt;td>\{{log.method}}&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
             \{{/each}}
-            </tbody>
-        </table>
+            &lt;/tbody>
+        &lt;/table>
     </div>
     &lt;/script>
 </script>
@@ -264,28 +264,28 @@ App = Ember.Application.create({
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div id="content">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
+        &lt;table>
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
             \{{#each log in content}}
-            <tr>
-                <td>\{{log.path}}</td>
-                <td>\{{log.method}}</td>
-                <td>\{{log.status}}</td>
-                <td>\{{size log.size}}</td>
-                <td>\{{log.date}}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>\{{log.path}}&lt;/td>
+                &lt;td>\{{log.method}}&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{size log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
             \{{/each}}
-            </tbody>
-        </table>
+            &lt;/tbody>
+        &lt/table>
     </div>
     &lt;/script>
 
@@ -324,28 +324,28 @@ App = Ember.Application.create({
     &lt;script type="text/x-handlebars" data-template-name="index">
     <div id="content">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
+        &lt;table>
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
             \{{#each log in filteredLogs}}
-            <tr>
-                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
-                <td>\{{log.method}}</td>
-                <td>\{{log.status}}</td>
-                <td>\{{size log.size}}</td>
-                <td>\{{log.date}}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
+                &lt;td>\{{log.method}}&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{size log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
             \{{/each}}
-            </tbody>
-        </table>
+            &lt;/tbody>
+        &lt;/table>
     </div>
     &lt;/script>
 
@@ -401,28 +401,28 @@ App = Ember.Application.create({
 
     <div id="content">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
+        &lt;table>
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
             \{{#each log in filteredLogs}}
-            <tr>
-                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
-                <td>\{{log.method}}</td>
-                <td>\{{log.status}}</td>
-                <td>\{{size log.size}}</td>
-                <td>\{{log.date}}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
+                &lt;td>\{{log.method}}&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{size log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
             \{{/each}}
-            </tbody>
-        </table>
+            &lt;/tbody>
+        &lt;/table>
     </div>
     &lt;/script>
 </script>
@@ -517,28 +517,28 @@ App = Ember.Application.create({
     </div>
     <div id="content">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
+        &lt;table>
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
             \{{#each log in filteredLogs}}
-            <tr>
-                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
-                <td>\{{log.method}}</td>
-                <td>\{{log.status}}</td>
-                <td>\{{size log.size}}</td>
-                <td>\{{log.date}}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
+                &lt;td>\{{log.method}}&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{size log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
             \{{/each}}
-            </tbody>
-        </table>
+            &lt;/tbody>
+        &lt;/table>
     </div>
     &lt;/script>
 
@@ -632,28 +632,28 @@ App = Ember.Application.create({
     </div>
     <div id="content">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
+        &lt;table>
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
             {{#each log in filteredLogs}}
-            <tr>
-                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
-                <td>\{{log.method}}</td>
-                <td>\{{log.status}}</td>
-                <td>\{{size log.size}}</td>
-                <td>\{{log.date}}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
+                &lt;td>\{{log.method}}&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{size log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
             {{/each}}
-            </tbody>
-        </table>
+            &lt;/tbody>
+        &lt;/table>
     </div>
     &lt;/script>
 </script>
@@ -696,32 +696,32 @@ App = Ember.Application.create({
     </div>
     <div id="content">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
+        &lt;table>
+            &lt;thead>
+            &lt;tr>
+                &lt;th>Path&lt;/th>
+                &lt;th>Method&lt;/th>
+                &lt;th>Status&lt;/th>
+                &lt;th>Size&lt;/th>
+                &lt;th>Time&lt;/th>
+            &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>
             {{#each log in filteredLogs}}
-            <tr>
-                <td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}</td>
-                <td>\{{log.method}}</td>
-                <td>\{{log.status}}</td>
-                <td>\{{size log.size}}</td>
-                <td>\{{log.date}}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>\{{#linkTo detail log}}\{{log.path}}\{{/linkTo}}&lt;/td>
+                &lt;td>\{{log.method}}&lt;/td>
+                &lt;td>\{{log.status}}&lt;/td>
+                &lt;td>\{{size log.size}}&lt;/td>
+                &lt;td>\{{log.date}}&lt;/td>
+            &lt;/tr>
             {{else}}
-            <tr>
-                <td colspan="5">NO RESULTS</td>
-            </tr>
+            &lt;tr>
+                &lt;td colspan="5">NO RESULTS&lt;/td>
+            &lt;/tr>
             {{/each}}
-            </tbody>
-        </table>
+            &lt;/tbody>
+        &lt;/table>
     </div>
     &lt;/script>
 </script>
