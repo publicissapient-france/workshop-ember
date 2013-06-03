@@ -26,7 +26,8 @@ $.get('tutorial.html').done(function (content) {
                         scrollTop: $(".is-active").offset().top
                     }, 100);
                 } else {
-                    view.set('status', " terminé !")
+                    view.set('status', " terminé !");
+                    var fworks = new Fireworks();
                 }
             }, 200);
 

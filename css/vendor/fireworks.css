@@ -1,0 +1,16 @@
+#fireworksBg {
+    background: #171717;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    opacity: 0.955;
+}
+
+canvas {
+    display: block;
+    z-index: 3;
+    cursor: crosshair;
+}
