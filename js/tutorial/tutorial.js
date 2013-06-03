@@ -118,6 +118,7 @@ $.get('tutorial.html').done(function (content) {
             test: function () {
                 ok(templates['application'] != undefined, "Le template 'application' n'est pas déclaré.");
                 templateContains("application", "<header>", "Le template application ne contient pas le bon titre et/ou les bonnes balises.");
+                templateContains("application", '<imgsrc="img/logo.png"' , "Le template application ne contient pas le logo avec sa balise img.");
                 templateContains("application", "</header>", "Le template application ne contient pas le bon titre et/ou les bonnes balises.")
             }
         }),
