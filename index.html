@@ -18,80 +18,9 @@
 
 </div>
 
+<!-- Ecrivez vos templates ci-dessous -->
 
-
-<script type="text/x-handlebars" data-template-name="application">
-    <header>
-        {{#linkTo index}}<img src="img/logo.png" alt="logo" />{{/linkTo}}
-    </header>
-    {{outlet}}
-</script>
-
-<script type="text/x-handlebars" data-template-name="detail">
-    <div id="content">
-    User agent: {{content.useragent}}
-    </div>
-</script>
-
-
-<script type="text/x-handlebars" data-template-name="index">
-    <div class="top">
-        <div>{{input type="search" value=searchTerm}}</div>
-    </div>
-    <div id="navigation">
-
-        <div>HTTP status</div>
-        <ul>
-            {{#each status in statuses}}
-            <li>
-                {{input type="checkbox" checked=status.checked}}
-                <label>{{status.code}}</label>
-            </li>
-            {{/each}}
-        </ul>
-        <br>
-
-        <div>HTTP type</div>
-        <ul>
-            {{#each method in methods }}
-
-            <li>
-                {{input type="checkbox" checked=method.checked}}
-                <label>{{method.code}}</label>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
-    <div id="content">
-
-        <table>
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Method</th>
-                <th>Status</th>
-                <th>Size</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each log in filteredLogs}}
-            {{#linkTo detail log tagName="tr"}}
-                <td>{{log.path}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{size log.size}}</td>
-                <td>{{log.date}}</td>
-            {{/linkTo}}
-            {{else}}
-            <tr>
-                <td colspan="5">NO RESULTS</td>
-            </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-</script>
+<!-- Ecrivez vos templates ci-dessus -->
 
 <script src="js/vendor/jquery-2.0.0.min.js"></script>
 <script src="js/vendor/handlebars-1.0.0-rc.3.js"></script>
