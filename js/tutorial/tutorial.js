@@ -374,13 +374,13 @@ $.get('tutorial.html').done(function (content) {
                 toggleStatusChecked(400);
                 ok (indexCtrl.get('isFilteredLogsHasChanged'), "filteredLogs n'est pas data-bindé sur la valeur checked de chaque élément de statues.")
 
-                ok (indexCtrl.get('filteredLogs').length == 2, "Si on décohe uniquement 400 et que 'content' " +
+                ok (indexCtrl.get('filteredLogs').length == 2, "Si on décoche uniquement 400 et que 'content' " +
                     "contient un log avec un code http égal à 400, il faut le filter.");
 
                 toggleStatusChecked(400);
                 toggleStatusChecked(200);
                 ok (indexCtrl.get('filteredLogs').length == 1 && indexCtrl.get('filteredLogs')[0].get('path') == "AA",
-                    "Si on décohe 200 uniquement et il n'y qu'un log dans 'content' qui n'a pas de code http égal à 200," +
+                    "Si on décoche 200 uniquement et il n'y qu'un log dans 'content' qui n'a pas de code http égal à 200," +
                         "alors filteredLogs renvois uniquement ce log");
 
                 toggleStatusChecked(200); // reset
@@ -444,14 +444,14 @@ $.get('tutorial.html').done(function (content) {
                 toggleMethodChecked("PUT");
                 ok (indexCtrl.get('isFilteredLogsHasChanged'), "filteredLogs n'est pas data-bindé sur la valeur checked de chaque élément de methods.")
 
-                ok (indexCtrl.get('filteredLogs').length == 2, "Si on décohe uniquement PUT et que 'content' " +
+                ok (indexCtrl.get('filteredLogs').length == 2, "Si on décoche uniquement PUT et que 'content' " +
                     "contient un log avec le verbe HTTP 'PUT', il faut le filter.");
 
                 toggleMethodChecked("PUT");
                 toggleMethodChecked("GET");
 
                 ok (indexCtrl.get('filteredLogs').length == 1 && indexCtrl.get('filteredLogs')[0].get('path') == "AA",
-                    "Si on décohe GET uniquement et il n'y qu'un log dans 'content' qui n'a pas de verbe HTTP GET," +
+                    "Si on décoche GET uniquement et il n'y qu'un log dans 'content' qui n'a pas de verbe HTTP GET," +
                         "alors filteredLogs renvois uniquement ce log");
 
                 toggleMethodChecked("GET"); // reset
