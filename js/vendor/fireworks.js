@@ -340,6 +340,12 @@ var Fireworks = function(){
 
         });
 
+        $(window).on('keypress', function(){
+            $(self.canvas).off();
+            $(self.canvas).remove();
+            $(self.canvasContainer).remove();
+        });
+
         $(self.canvas).on('mouseup', function(e){
             $(self.canvas).off('mousemove.fireworks');
         });
