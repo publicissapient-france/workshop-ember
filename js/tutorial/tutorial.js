@@ -298,7 +298,7 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-search",
             solutionTemplateName: "tutorial-solution-search",
             test:function(){
-                templateContains('index', '{{input',"L'helper input n'est pas utilisé dans le template application.");
+                templateContains('index', '{{input',"L'helper input n'est pas utilisé dans le template index.");
                 templateContains('index', '<div>{{input',"L'helper input n'est pas au bon endroit. Il doit être dans la div.");
                 ok(templates.index.indexOf("type=\"search\"") != - 1 || templates.application.indexOf("type='search'") != - 1, "Le helper input doit être de type search");
                 templateContains('index','value=searchTerm',"Le helper input doit avoir comme valeur la propriété 'searchTerm'");
