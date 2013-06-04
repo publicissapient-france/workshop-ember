@@ -242,8 +242,8 @@ $.get('tutorial.html').done(function (content) {
             solutionTemplateName: "tutorial-solution-helper",
             test: function () {
                 ok (helpers.size != undefined, "Le helper 'size' n'est pas définie.");
-                ok (helpers.size(180) === "180 B", "Si le on donne 180 au helper il devrait retourner '180 B' or il retourne "+helpers.size(180));
-                ok (helpers.size(2202) === "2.15 kB", "Si le on donne 2202 au helper il devrait retourner '2.15 kB' or il retourne "+helpers.size(2202));
+                ok (helpers.size(180) === "180 B", "Si l'on donne 180 au helper il devrait retourner '180 B' or il retourne "+helpers.size(180));
+                ok (helpers.size(2202) === "2.15 kB", "Si l'on donne 2202 au helper il devrait retourner '2.15 kB' or il retourne "+helpers.size(2202));
                 try{
                     ok(helpers.size(undefined) === "", "Si l'on donne undefined au helper size, il doit renvoyer \"\"");
                 } catch (e){
@@ -253,7 +253,7 @@ $.get('tutorial.html').done(function (content) {
                     fail("Si l'on donne undefined au helper size il ne doit pas avoir d'erreur");
                 }
 
-                templateContains("index", "{{size", "Le helper size n'est pas utilisé dans le template index");
+                templateContains("index", "{{size", "Dernière chose, appeler le helper size dans le template index");
             }
         }),
         Tuto.Step.create({
@@ -266,9 +266,14 @@ $.get('tutorial.html').done(function (content) {
 
                 ok (appRouter.hasRoute('detail'), "Il n'y pas de route 'detail' déclarée dans le router.");
 
+                ok (appRouter.router.recognizer.handlersFor('detail').length == 2, "La définition de la route est incorrecte");
+
+                var detailHandler =  appRouter.router.recognizer.handlersFor('detail')[1];
+                ok (detailHandler.names.length == 1, "La route détail doit être définie avec un path, avec une partie variable");
+                ok (detailHandler.names[0] == "log_id", "La partie variable du path de detail doit être log_id et non pas "+detailHandler.names[0]);
+
                 ok(Em.TEMPLATES['detail'] != undefined, "Le template 'detail' n'est pas déclaré.");
 
-                ok(templates.index.indexOf('<tbody><tr>') == -1, "La balise tr dans le tbody doit être remplacée par un helper linkTo avec la propriété tagName='tr'");
                 ok(templates.index.indexOf('{{#linkTo') != -1, "Le helper linkTo n'est pas utilisé dans l'index");
 
                 ok(templates.index.indexOf("tagName=\"tr\"") != -1 ||
@@ -280,7 +285,10 @@ $.get('tutorial.html').done(function (content) {
                 ok(templates.index.indexOf("{{#linkTo'detail'tagName") == -1 &&
                     templates.index.indexOf("{{#linkTodetailtagName") == -1, "LinkTo doit aussi passer le log courant à la route 'detail'");
 
+                ok (templates.detail.indexOf("<div") != -1, "Le template detail ne contient pas de balise div");
+                ok (templates.detail.indexOf("content") != -1, "Le template detail ne contient pas l'id content");
                 templateContains('detail','useragent}}', "Le useragent n'est pas affiché dans le détail.");
+                templateContains('detail','useragent}}</div>', "Le useragent doit être dans la div");
             }
         }),
         Tuto.Step.create({
