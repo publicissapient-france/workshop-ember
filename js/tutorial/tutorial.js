@@ -118,9 +118,9 @@ $.get('tutorial.html').done(function (content) {
             solutionTemplateName: "tutorial-solution-hello",
             test: function () {
                 ok(templates['application'] != undefined, "Le template 'application' n'est pas déclaré.");
-                templateContains("application", "<header>", "Le template application ne contient pas le bon titre et/ou les bonnes balises.");
-                templateContains("application", '<imgsrc="img/logo.png"' , "Le template application ne contient pas le logo avec sa balise img.");
-                templateContains("application", "</header>", "Le template application ne contient pas le bon titre et/ou les bonnes balises.")
+                templateContains("application", "<header>", "Le template application ne contient pas de balise header");
+                templateContains("application", "</header>", "Le template application ne contient pas de balise header")
+                templateContains("application", '<imgsrc="img/logo.png"' , "Le template application ne contient pas le logo avec sa balise img dans le header");
             }
         }),
         Tuto.Step.create({
@@ -128,7 +128,7 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-ds",
             solutionTemplateName: "tutorial-solution-ds",
             test: function () {
-                ok(Em.typeOf(App.Store) == 'class', "App.Store n'est pas définie.");
+                ok(Em.typeOf(App.Store) == 'class', "App.Store n'est pas définie, ou a été initialisé avec un create.");
                 ok(App.Store.create() instanceof DS.Store, "App.Store n'est pas de type DS.Store");
                 ok(App.Store.prototype.revision == 12, "La revision actuelle de App.Store est "
                     + App.Store.prototype.revision + " alors qu'elle devrait être 12");
@@ -221,7 +221,7 @@ $.get('tutorial.html').done(function (content) {
                 ok (templates.index.indexOf("log.path}}") != -1, "La propriété path n'est pas utilisée dans le template index");
 
 
-                ok (typeof log.get('method') != "undefined", "App.Log.method n'est pas pas définie");
+                ok (typeof log.get('method') != "undefined", "La propriété method de App.Log n'est pas pas définie");
 
                 ok (typeof log.method != "function", "App.Log.method n'est pas une proriété calculée mais une fonction, " +
                         "on aurait pas oublié '.property(...)' par hasard ?");

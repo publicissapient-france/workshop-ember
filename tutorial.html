@@ -201,12 +201,12 @@ App = Ember.Application.create({
         useragent: DS.attr('string'),
 
         path: function () {
-        var parts = this.get('request').split(' ');
-        return parts[1];
+            var parts = this.get('request').split(' ');
+            return parts[1];
         }.property('request'),
         method: function () {
-        var parts = this.get('request').split(' ');
-        return parts[0];
+            var parts = this.get('request').split(' ');
+            return parts[0];
         }.property('request')
     });
 
