@@ -410,6 +410,8 @@ $.get('tutorial.html').done(function (content) {
 
                 ok ($('#ember-app .ember-view #navigation ul:eq(0) li label').length > 0, "La balise label n'est pas utiliser dans les li");
                 templateContains("index", "code}}</label>", "Le code HTTP n'est pas dans le label");
+
+                templateContains("index", 'checked=', 'La checkbox doit être lié au checked des status');
             }
         }),
         Tuto.Step.create({
@@ -481,7 +483,7 @@ $.get('tutorial.html').done(function (content) {
             detailTemplateName: "tutorial-step-empty-list",
             solutionTemplateName: "tutorial-solution-empty-list",
             test:function(){
-                templateContains("index", "{{else}}", "Le helper else n'est pas utilisé dans l'index");
+                templateContains("index", "{{else}}<tr><td>", "Le helper else n'est pas utilisé dans l'index ou il ne contient rien");
 
             }
         })
