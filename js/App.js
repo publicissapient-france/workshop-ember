@@ -67,10 +67,10 @@ App.IndexController = Ember.ArrayController.extend({
         return this.get('content').filter(function (log) {
             return statuses.indexOf(log.get('status')) != -1;
         }).filter(function (log) {
-            return methods.indexOf(log.get('method')) != -1;
-        }).filter(function (log) {
-            return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
-        });
+                return methods.indexOf(log.get('method')) != -1;
+            }).filter(function (log) {
+                return searchTerm == '' || log.get('path').indexOf(searchTerm) != -1
+            });
     }.property('content.@each', 'methods.@each.checked', 'statuses.@each.checked', 'searchTerm')
 
 
